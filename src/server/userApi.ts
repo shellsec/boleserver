@@ -9,6 +9,8 @@ import { promisify } from 'util'
 
 import * as tunnel from 'tunnel'
 import { getProxyAgent } from '../modules/utils/proxy.js'
+import { recoverSubscribedSources } from './sourceSubscriptions'
+import { withSourceTimeout } from './sourceSubscriptionCore'
 const inflate = promisify(zlib.inflate)
 const deflate = promisify(zlib.deflate)
 
@@ -227,10 +229,29 @@ async function createLxRequest(isUnsafe: boolean = false, onSniffUpdate?: (alert
 }
 
 // 加载自定义源脚本
-export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
+export async function loadUserApi(apiInfo: UserApiInfo, options: { probeUnsafe?: boolean } = {}): Promise<any> {
     // 从脚本中提取元数据
     const metadata = extractMetadata(apiInfo.script)
     const fullApiInfo = { ...apiInfo, ...metadata }
+
+    const timers = new Set<ReturnType<typeof setTimeout>>()
+    const intervals = new Set<ReturnType<typeof setInterval>>()
+    const dispose = () => {
+        for (const timer of timers) clearTimeout(timer)
+        for (const timer of intervals) clearInterval(timer)
+        timers.clear()
+        intervals.clear()
+    }
+    const trackedTimeout = (callback: (...args: any[]) => void, delay?: number, ...args: any[]) => {
+        const timer = setTimeout(() => { timers.delete(timer); callback(...args) }, delay)
+        timers.add(timer)
+        return timer
+    }
+    const trackedInterval = (callback: (...args: any[]) => void, delay?: number, ...args: any[]) => {
+        const timer = setInterval(callback, delay, ...args)
+        intervals.add(timer)
+        return timer
+    }
 
     // 创建事件处理映射
     const eventHandlers = new Map<string, Function>()
@@ -388,17 +409,17 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
     // 完整沙箱环境
     const sandbox: any = {
         console: sandboxConsole,
-        setTimeout,
-        clearTimeout,
-        setInterval,
-        clearInterval,
+        setTimeout: trackedTimeout,
+        clearTimeout: (timer: ReturnType<typeof setTimeout>) => { timers.delete(timer); clearTimeout(timer) },
+        setInterval: trackedInterval,
+        clearInterval: (timer: ReturnType<typeof setInterval>) => { intervals.delete(timer); clearInterval(timer) },
         Buffer,
         URL,
         URLSearchParams,
         TextEncoder,
         TextDecoder,
         process: {
-            nextTick: (fn: Function, ...args: any[]) => setTimeout(() => fn(...args), 0),
+            nextTick: (fn: Function, ...args: any[]) => trackedTimeout(() => fn(...args), 0),
             env: { NODE_ENV: process.env.NODE_ENV || 'production' }
         },
         lx: lxObject,
@@ -445,13 +466,16 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
         }
 
         // 等待脚本调用 lx.send('inited')（最多等待 3 秒）
-        await Promise.race([
-            initPromise,
-            new Promise((_, reject) => setTimeout(() => reject(new Error('初始化超时，请确保脚本调用了 lx.send("inited", ...)')), 3000))
-        ])
+        let initTimer: ReturnType<typeof setTimeout> | undefined
+        try {
+            await Promise.race([initPromise, new Promise((_, reject) => {
+                initTimer = setTimeout(() => reject(new Error('初始化超时，请确保脚本调用了 lx.send("inited", ...)')), 3000)
+            })])
+        } finally { if (initTimer) clearTimeout(initTimer) }
 
         // 保存加载 of the API
         const apiInstance = {
+            dispose,
             info: { ...fullApiInfo, sources: registeredSources },
             handlers: eventHandlers,
             callRequest: async (action: string, source: string, info: any) => {
@@ -465,7 +489,7 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
                         inputData = JSON.parse(JSON.stringify(inputData))
                     }
 
-                    const result = await handler(inputData)
+                    const result = await withSourceTimeout(() => handler(inputData))
                     return decontextify(result)
                 } catch (e: any) {
                     console.error(`[自定义源-${fullApiInfo.name}] 调用请求异常:`, e.message)
@@ -479,6 +503,7 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
         console.log(`[自定义源]   支持平台: ${Object.keys(registeredSources).join(', ')}`)
         return { success: true, apiInstance, error: null }
     } catch (error: any) {
+        dispose()
         console.error(`[自定义源] ✗ 加载失败 ${fullApiInfo.name}:`, error.message)
         if (error.stack && error.message !== 'REQUIRE_UNSAFE_VM') {
             console.error(`[自定义源] [错误堆栈] ${fullApiInfo.name}:`, error.stack)
@@ -487,7 +512,7 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
         let isRequireUnsafe = !apiInfo.allowUnsafeVM && (error.message === 'REQUIRE_UNSAFE_VM' || error.message.includes('初始化超时') || error.message.includes('timeout'))
 
         // 如果在 VM2 模式下加载失败，且系统允许 VM 模式，尝试测试原生 VM 模式能否成功加载
-        if (!isRequireUnsafe && !apiInfo.allowUnsafeVM && global.lx.config['system.allowUnsafeVM']) {
+        if (options.probeUnsafe !== false && !isRequireUnsafe && !apiInfo.allowUnsafeVM && global.lx.config['system.allowUnsafeVM']) {
             try {
                 const testUnsafeRes = await loadUserApi({
                     ...apiInfo,
@@ -499,6 +524,12 @@ export async function loadUserApi(apiInfo: UserApiInfo): Promise<any> {
                     isRequireUnsafe = true
                 }
             } catch (e) { }
+            finally {
+                const key = `${apiInfo.owner}_${apiInfo.id}_test_vm`
+                loadedApis.get(key)?.dispose?.()
+                loadedApis.delete(key)
+                apiStatus.delete(key)
+            }
         }
 
         return { success: false, apiInstance: null, error: error.message, requireUnsafe: isRequireUnsafe, updateAlert: error.updateAlert }
@@ -530,8 +561,51 @@ const validateReturnedMusicUrl = (rawUrl: any, sourceName?: string): string => {
     return trimmed
 }
 
+/** Validate without leaving temporary APIs in the live candidate map. */
+export async function inspectSubscriptionScript(script: string, allowUnsafeVM: boolean): Promise<Record<string, any>> {
+    if (allowUnsafeVM && !global.lx.config['system.allowUnsafeVM']) throw new Error('服务器已禁用 VM 模式')
+    const id = crypto.randomUUID()
+    const owner = 'subscription_validation'
+    try {
+        const metadata = extractMetadata(script)
+        const result = await loadUserApi({ ...metadata, id, owner, script, enabled: false, allowUnsafeVM } as UserApiInfo, { probeUnsafe: false })
+        const supportedSources = Object.keys(result.apiInstance?.info?.sources || {})
+        if (!result.success || !supportedSources.length) throw new Error(result.error || '脚本没有注册任何音源')
+        return { ...metadata, supportedSources, requireUnsafe: allowUnsafeVM }
+    } finally {
+        loadedApis.get(`${owner}_${id}`)?.dispose?.()
+        loadedApis.delete(`${owner}_${id}`)
+        apiStatus.delete(`${owner}_${id}`)
+    }
+}
+
 // 调用自定义源的 getMusicUrl
 export async function callUserApiGetMusicUrl(
+    source: string, songInfo: any, quality: string, clientUsername?: string,
+    onProgress?: (attempt: any) => Promise<void> | void,
+    enableAutoSwitchApiSource?: boolean, excludeApiSources?: string[]
+): Promise<{ url: string, type: string, sourceName?: string, sourceId?: string, attempts?: any[], hasMoreSources?: boolean }> {
+    const attempt = (exclude?: string[]) => tryUserApiGetMusicUrl(source, songInfo, quality, clientUsername, onProgress, enableAutoSwitchApiSource, exclude)
+    try { return await attempt(excludeApiSources) }
+    catch (error: any) {
+        const identity = songInfo.meta?.songId || songInfo.songmid || songInfo.hash || songInfo.id || `${songInfo.name || ''}:${songInfo.singer || ''}`
+        const recovered = await recoverSubscribedSources(clientUsername, JSON.stringify([source, identity, quality]), async () => {
+            if (onProgress) await onProgress({ name: '订阅', status: 'success', message: '订阅已更新，重新尝试音源' })
+            try {
+                const result = await attempt()
+                result.attempts = [...(error.attempts || []), ...(result.attempts || [])]
+                return result
+            } catch (retryError: any) {
+                retryError.attempts = [...(error.attempts || []), ...(retryError.attempts || [])]
+                throw retryError
+            }
+        })
+        if (recovered) return recovered
+        throw error
+    }
+}
+
+async function tryUserApiGetMusicUrl(
     source: string,
     songInfo: any,
     quality: string,
@@ -956,13 +1030,23 @@ async function loadSourcesFromDir(dirPath: string, owner: string, stats: { loade
 // 文件监控相关
 let fsWatcher: fs.FSWatcher | null = null
 const lastReloadMap = new Map<string, number>() // 记录每个用户的最后加载时间
+const watcherDebounces = new Map<string, NodeJS.Timeout>()
+
+export function disposeUserApis() {
+    fsWatcher?.close()
+    fsWatcher = null
+    for (const timer of watcherDebounces.values()) clearTimeout(timer)
+    watcherDebounces.clear()
+    for (const api of loadedApis.values()) api.dispose?.()
+    loadedApis.clear()
+    apiStatus.clear()
+}
 
 // 启动文件监控
 function startWatcher(sourceRoot: string) {
     if (fsWatcher) return
 
     console.log(`[自定义源] 启动源文件监控: ${sourceRoot}`)
-    const debounceMap = new Map<string, NodeJS.Timeout>()
 
     try {
         // Warning: recursive option for fs.watch is generally supported on Windows/macOS but not Linux
@@ -986,11 +1070,11 @@ function startWatcher(sourceRoot: string) {
             }
 
             // 简单的防抖处理
-            if (debounceMap.has(username)) {
-                clearTimeout(debounceMap.get(username)!)
+            if (watcherDebounces.has(username)) {
+                clearTimeout(watcherDebounces.get(username)!)
             }
 
-            debounceMap.set(username, setTimeout(() => {
+            watcherDebounces.set(username, setTimeout(() => {
                 // 检查是否是最近刚加载或写入过 (避免面板上传或服务端自愈保存造成的重复加载)
                 // 阈值设为 4000ms
                 const lastReload = lastReloadMap.get(username) || 0
@@ -1005,10 +1089,10 @@ function startWatcher(sourceRoot: string) {
             }, 2000)) // 2秒防抖，等待文件写入完成
         })
 
+        fsWatcher.unref()
+
         // 进程退出时关闭监听
-        process.on('exit', () => {
-            if (fsWatcher) fsWatcher.close()
-        })
+        process.on('exit', disposeUserApis)
     } catch (e) {
         console.error('[自定义源] 启动文件监控失败:', e)
     }
@@ -1047,6 +1131,7 @@ export async function initUserApis(targetUser?: string) {
         // 清理该用户的旧源和状态
         for (const [key, api] of loadedApis.entries()) {
             if (api.info.owner === targetUser) {
+                api.dispose?.()
                 loadedApis.delete(key)
             }
         }
@@ -1071,6 +1156,7 @@ export async function initUserApis(targetUser?: string) {
 
     } else {
         console.log(`[自定义源] 初始化所有自定义源...`)
+        for (const api of loadedApis.values()) api.dispose?.()
         loadedApis.clear()
 
         // 扫描 sourceRoot 下的所有子目录

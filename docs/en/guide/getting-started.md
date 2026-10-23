@@ -24,7 +24,7 @@ Before starting this service project, please ensure that the host system (or vir
 
 For desktop users, we strongly recommend using the **Desktop Client** based on Electron. It integrates the server management and player, featuring system tray support.
 
-1. **Download**: [GitHub Releases](https://github.com/XCQ0607/lxserver/releases/latest)
+1. **Download**: [GitHub Releases](https://github.com/shellsec/boleserver/releases/latest)
 2. **Choose Version**:
    - **Windows**: Download `Universal.exe` (All-in-one) or `portable.exe` (Portable version).
    - **macOS**: Download `universal.dmg` (Supports Intel/M1/M2).
@@ -35,8 +35,8 @@ For desktop users, we strongly recommend using the **Desktop Client** based on E
 
 This project supports pulling images from Docker Hub or GitHub Packages:
 
-- **Docker Hub**: `xcq0607/lxserver:latest`
-- **GitHub Packages**: `ghcr.io/xcq0607/lxserver:latest`
+- **Docker Hub**: `shellsec/boleserver:latest`
+- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
 
 Execute the following command to start the container:
 
@@ -49,7 +49,7 @@ docker run -d \
   -v $(pwd)/music:/server/music \
   --name lx-sync-server \
   --restart unless-stopped \
-  xcq0607/lxserver:latest
+  shellsec/boleserver:latest
 ```
 
 **Container Volume Mappings:**
@@ -66,7 +66,7 @@ For standardized long-term management in production implementation, create a def
 version: '3'
 services:
   lx-sync-server:
-    image: xcq0607/lxserver:latest
+    image: shellsec/boleserver:latest
     container_name: lx-sync-server
     restart: unless-stopped
     ports:
@@ -91,11 +91,11 @@ For restricted non-containerized environments or secondary research and developm
 
 ```bash
 # 1. Extract the code from the remote code repository to the current directory in the Main branch state
-git clone https://github.com/XCQ0607/lxserver.git 
+git clone https://github.com/shellsec/boleserver.git
 cd lxserver
 
 # 2. Call the strict analysis process to initialize the module dependency library
-npm ci 
+npm ci
 
 # 3. Perform pre-compilation aggregation processing on TypeScript types and Vue DOM templates
 npm run build
@@ -121,12 +121,12 @@ server {
 
     location / {
         proxy_pass http://127.0.0.1:9527;
-  
+
         # Define the Header transmission policy to ensure that the Node layer can get the client's public network layer IP
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  
+
         # Complement the long-connection upgrade feature definition (necessary condition for internal synchronization communication socket services)
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

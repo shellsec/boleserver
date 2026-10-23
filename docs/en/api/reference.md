@@ -1,6 +1,6 @@
 # Server API Reference
 
-LX Sync Server provides a comprehensive and robust suite of RESTful and SSE streaming API endpoints for managing sync server data, multi-user accounts, audio file caching, custom directories, and system operations.
+BoleServer provides a comprehensive and robust suite of RESTful and SSE streaming API endpoints for managing sync server data, multi-user accounts, audio file caching, custom directories, and system operations.
 
 ---
 

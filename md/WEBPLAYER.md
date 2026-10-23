@@ -1,4 +1,4 @@
-# LX Music Web Player
+# BoleServer Player
 
 The full documentation for the Web Player has been moved to the [main README](../README.md).
 

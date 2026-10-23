@@ -1,12 +1,13 @@
 {
-  "name": "lx-music-sync-server",
+  "name": "boleserver",
   "version": "2.1.3",
   "private": true,
   "scripts": {
     "prebuild": "node scripts/download-binary.js && node scripts/update-build-hash.js",
     "build": "rimraf server && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "test": "node --test test/*.test.cjs",
+    "test": "tsx --test test/*.test.cjs test/*.test.ts",
     "test:unit": "tsx --test test/*.test.ts",
+    "test:smoke": "node scripts/smoke-server.cjs",
     "prestart": "node scripts/download-binary.js && node scripts/update-build-hash.js",
     "start": "node ./index.js",
     "predev": "node scripts/update-build-hash.js",
@@ -27,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XCQ0607/lxserver.git"
+    "url": "git+https://github.com/shellsec/boleserver.git"
   },
   "author": {
     "name": "XCQ",
@@ -35,9 +36,9 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/XCQ0607/lxserver/issues"
+    "url": "https://github.com/shellsec/boleserver/issues"
   },
-  "homepage": "https://github.com/XCQ0607/lxserver#readme",
+  "homepage": "https://github.com/shellsec/boleserver#readme",
   "dependencies": {
     "@foobar404/wave": "^2.0.5",
     "@types/formidable": "^3.5.1",

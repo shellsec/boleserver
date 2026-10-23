@@ -2621,7 +2621,7 @@ class App {
 
             // Web播放器配置
             if (form.elements['player.name']) {
-                form.elements['player.name'].value = config['player.name'] || 'LX Music Web';
+                form.elements['player.name'].value = config['player.name'] || 'BoleServer';
             }
             if (form.elements['player.enableAuth']) {
                 form.elements['player.enableAuth'].checked = config['player.enableAuth'] === true;
@@ -3249,7 +3249,7 @@ class App {
             'user.enableCacheSizeLimit': formData.get('user.enableCacheSizeLimit') === 'on',
             'user.cacheSizeLimit': parseInt(formData.get('user.cacheSizeLimit')) || 2000,
             'admin.password': formData.get('admin.password'),
-            'player.name': (formData.get('player.name') || '').trim() || 'LX Music Web',
+            'player.name': (formData.get('player.name') || '').trim() || 'BoleServer',
             'player.enableAuth': formData.get('player.enableAuth') === 'on',
             'player.password': formData.get('player.password'),
             'webdav.enable': formData.get('webdav.enable') === 'on',

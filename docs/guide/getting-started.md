@@ -24,7 +24,7 @@
 
 对于桌面用户，我们强烈推荐使用基于 Electron 的**桌面客户端**。它集成了服务器管理与播放器，且具备系统托盘常驻功能。
 
-1. **前往下载**: [GitHub Releases](https://github.com/XCQ0607/lxserver/releases/latest)
+1. **前往下载**: [GitHub Releases](https://github.com/shellsec/boleserver/releases/latest)
 2. **选择版本**:
    - **Windows**: 下载 `Universal.exe` (全架构合一) 或 `portable.exe` (绿色版)。
    - **macOS**: 下载 `universal.dmg` (支持 Intel/M1/M2)。
@@ -35,8 +35,8 @@
 
 本项目支持从 Docker Hub 或 GitHub Packages 拉取镜像：
 
-- **Docker Hub**: `xcq0607/lxserver:latest`
-- **GitHub Packages**: `ghcr.io/xcq0607/lxserver:latest`
+- **Docker Hub**: `shellsec/boleserver:latest`
+- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
 
 执行以下指令启动容器：
 
@@ -49,7 +49,7 @@ docker run -d \
   -v $(pwd)/music:/server/music \
   --name lx-sync-server \
   --restart unless-stopped \
-  xcq0607/lxserver:latest
+  shellsec/boleserver:latest
 ```
 
 **容器挂载卷 (Volume Mappings) ：**
@@ -66,7 +66,7 @@ docker run -d \
 version: '3'
 services:
   lx-sync-server:
-    image: xcq0607/lxserver:latest
+    image: shellsec/boleserver:latest
     container_name: lx-sync-server
     restart: unless-stopped
     ports:
@@ -91,11 +91,11 @@ services:
 
 ```bash
 # 1. 由远端代码仓库提取代码的 Main 主线状态至当前目录
-git clone https://github.com/XCQ0607/lxserver.git 
+git clone https://github.com/shellsec/boleserver.git
 cd lxserver
 
 # 2. 调用严格解析流程初始化模块依赖库
-npm ci 
+npm ci
 
 # 3. 对 TypeScript 类型及 Vue DOM 模板进行预编译聚合处理
 npm run build
@@ -121,12 +121,12 @@ server {
 
     location / {
         proxy_pass http://127.0.0.1:9527;
-  
+
         # 定义 Header 头传递策略以确保 Node 层可取到客户端外网层 IP
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  
+
         # 补全长连接升级特性定义（对内部的同步通信套接字服务必要条件）
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";

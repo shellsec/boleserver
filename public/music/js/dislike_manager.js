@@ -1,5 +1,5 @@
 /**
- * Dislike Manager for LX Music Web
+ * Dislike Manager for BoleServer
  * 不喜欢管理模块
  *
  * 与 Subsonic 评分联动，读写同一份 lx-music 原生 dislike 规则：

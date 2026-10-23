@@ -13846,6 +13846,7 @@ async function handleUrlImport() {
     if (input === null) return; // 用户取消
 
     const url = input.trim();
+    const filename = url.split('/').pop().split('?')[0] || 'source.js';
     if (!url) {
         showError('请输入链接地址');
         return;
@@ -13865,7 +13866,7 @@ async function handleUrlImport() {
             headers: headers,
             body: JSON.stringify({
                 url,
-                filename: url.split('/').pop().split('?')[0] || '',
+                filename,
                 username: username
             })
         });
@@ -14632,6 +14633,70 @@ async function batchSourceDelete(scope) {
     exitSourceBatchMode(scope);
 }
 
+// 音源订阅，与移动端共用 sources.json 清单格式。
+let sourceSubscriptionBusy = false;
+let sourceSubscriptionScope = '';
+function sourceSubscriptionHeaders() {
+    const headers = { 'Content-Type': 'application/json', ...getUserAuthHeaders() };
+    const adminPass = localStorage.getItem('lx_admin_password');
+    if (adminPass) headers['x-frontend-auth'] = adminPass;
+    return headers;
+}
+function showSourceSubscriptionStatus(data) {
+    const status = document.getElementById('source-subscription-status');
+    if (!status) return;
+    status.textContent = data.error ? `更新失败，已保留原音源：${data.error}`
+        : data.url ? `已订阅${data.lastChecked ? '；最近检查：' + new Date(data.lastChecked).toLocaleString() : ''}` : '未设置订阅';
+}
+async function loadSourceSubscription() {
+    const username = currentListData?.username || 'default';
+    sourceSubscriptionScope = username;
+    const input = document.getElementById('source-subscription-url');
+    if (input) input.value = '';
+    try {
+        const response = await fetch(`/api/custom-source/subscription?username=${encodeURIComponent(username)}`, { headers: sourceSubscriptionHeaders() });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || '无法读取订阅');
+        if (sourceSubscriptionScope !== username || (currentListData?.username || 'default') !== username) return;
+        if (input) input.value = data.url || '';
+        showSourceSubscriptionStatus(data);
+    } catch (error) {
+        if (sourceSubscriptionScope === username) {
+            const status = document.getElementById('source-subscription-status');
+            if (status) status.textContent = error.message;
+        }
+    }
+}
+async function manageSourceSubscription(action) {
+    if (sourceSubscriptionBusy) return;
+    const username = currentListData?.username || 'default';
+    const url = document.getElementById('source-subscription-url')?.value.trim() || '';
+    if (action === 'save' && !url) { showError('请输入订阅清单地址'); return; }
+    sourceSubscriptionBusy = true;
+    const buttons = document.querySelectorAll('#source-subscription-actions button');
+    buttons.forEach(button => { button.disabled = true; });
+    let needAuth = false;
+    try {
+        const response = await fetch('/api/custom-source/subscription', {
+            method: 'POST', headers: sourceSubscriptionHeaders(),
+            body: JSON.stringify({ username, action, ...(action === 'save' ? { url } : {}) })
+        });
+        const data = await response.json();
+        if (response.status === 403) { needAuth = true; throw new Error(data.error); }
+        if (!response.ok || !data.success) throw new Error(data.error || '订阅操作失败');
+        if ((currentListData?.username || 'default') !== username) return;
+        showSourceSubscriptionStatus(data);
+        if (action === 'clear') document.getElementById('source-subscription-url').value = '';
+        showSuccess(action === 'clear' ? '已停止订阅更新，保留已下载音源' : data.updated ? '订阅音源已更新' : '订阅清单无变化');
+        await loadCustomSources();
+    } catch (error) { showError(error.message); }
+    finally {
+        sourceSubscriptionBusy = false;
+        buttons.forEach(button => { button.disabled = false; });
+    }
+    if (needAuth && await handleAdminAuth('管理音源订阅需要验证身份')) return manageSourceSubscription(action);
+}
+
 // 模态框控制
 function openCustomSourceModal() {
     const modal = document.getElementById('custom-source-modal');
@@ -14640,6 +14705,7 @@ function openCustomSourceModal() {
 
     // 渲染列表
     renderCustomSources();
+    void loadSourceSubscription();
 
     setTimeout(() => {
         if (content) {

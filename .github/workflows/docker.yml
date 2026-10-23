@@ -5,10 +5,10 @@ on:
   workflow_dispatch:
 env:
   REGISTRY: ghcr.io
-  # 使用 github.repository_owner 获取用户名，并指定镜像名为 lxserver
-  IMAGE_NAME: ${{ github.repository_owner }}/lxserver
+  # 使用 github.repository_owner 获取用户名，并指定镜像名为 boleserver
+  IMAGE_NAME: ${{ github.repository_owner }}/boleserver
   # Docker Hub 仓库名
-  DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/lxserver
+  DOCKER_HUB_REPO: ${{ secrets.DOCKER_USERNAME }}/boleserver
 
 jobs:
   build_and_push:
@@ -70,12 +70,12 @@ jobs:
             type=raw,value=${{ env.PROJECT_VERSION }}
           labels: |
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
-            org.opencontainers.image.description=LX Music Sync Server (Enhanced Edition)
+            org.opencontainers.image.description=BoleServer
             org.opencontainers.image.licenses=Apache-2.0
 
       - name: Delete old Docker image versions
         run: |
-          PACKAGE_NAME="lxserver"
+          PACKAGE_NAME="boleserver"
           OWNER="${{ github.repository_owner }}"
           
           for TAG in "${{ env.PROJECT_VERSION }}"; do

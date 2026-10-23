@@ -5,7 +5,7 @@
 module.exports = {
   // 同步服务名称
   // 环境变量: SERVER_NAME
-  "serverName": "lxserver",
+  "serverName": "BoleServer",
 
   // 是否启用 DEBUG 模式 (开启后输出详细的调试日志与音源内部日志，默认关闭，供开发人员使用)
   // 环境变量: ENABLE_DEBUG (true/false)
@@ -162,7 +162,7 @@ module.exports = {
 
   // Web播放器名称
   // 环境变量: PLAYER_NAME
-  "player.name": "LX Music Web",
+  "player.name": "BoleServer",
 
   // 是否启用 Web播放器 访问密码
   // 环境变量: ENABLE_WEBPLAYER_AUTH (true/false)

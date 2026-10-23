@@ -64,42 +64,42 @@ jobs:
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-x64-Setup
+          name: boleserver-win-x64-Setup
           path: dist-electron/*x64 Setup.exe
 
       - name: Win x86 Setup
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-x86-Setup
+          name: boleserver-win-x86-Setup
           path: dist-electron/*ia32 Setup.exe
 
       - name: Win arm64 Setup
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-arm64-Setup
+          name: boleserver-win-arm64-Setup
           path: dist-electron/*arm64 Setup.exe
 
       - name: Win x64 Portable
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-x64-Portable
+          name: boleserver-win-x64-Portable
           path: dist-electron/*x64 Portable.exe
 
       - name: Win x86 Portable
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-x86-Portable
+          name: boleserver-win-x86-Portable
           path: dist-electron/*ia32 Portable.exe
 
       - name: Win arm64 Portable
         if: matrix.platform == 'win'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-win-arm64-Portable
+          name: boleserver-win-arm64-Portable
           path: dist-electron/*arm64 Portable.exe
 
       # ── Mac 独立上传 ─────────────────────────────────────────────
@@ -107,14 +107,14 @@ jobs:
         if: matrix.platform == 'mac'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-mac-x64-dmg
+          name: boleserver-mac-x64-dmg
           path: dist-electron/*x64.dmg
 
       - name: Mac arm64 DMG
         if: matrix.platform == 'mac'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-mac-arm64-dmg
+          name: boleserver-mac-arm64-dmg
           path: dist-electron/*arm64.dmg
 
       # ── Linux 独立上传 ──────────────────────────────────────────
@@ -122,40 +122,40 @@ jobs:
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-amd64-AppImage
+          name: boleserver-linux-amd64-AppImage
           path: dist-electron/*x64.AppImage
 
       - name: Linux arm64 AppImage
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-arm64-AppImage
+          name: boleserver-linux-arm64-AppImage
           path: dist-electron/*arm64.AppImage
 
       - name: Linux armv7l AppImage
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-armv7l-AppImage
+          name: boleserver-linux-armv7l-AppImage
           path: dist-electron/*armv7l.AppImage
 
       - name: Linux amd64 Deb
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-amd64-deb
+          name: boleserver-linux-amd64-deb
           path: dist-electron/*amd64.deb
 
       - name: Linux arm64 Deb
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-arm64-deb
+          name: boleserver-linux-arm64-deb
           path: dist-electron/*arm64.deb
 
       - name: Linux armv7l Deb
         if: matrix.platform == 'linux'
         uses: actions/upload-artifact@v4
         with:
-          name: lxserver-linux-armv7l-deb
+          name: boleserver-linux-armv7l-deb
           path: dist-electron/*armv7l.deb

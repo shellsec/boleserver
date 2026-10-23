@@ -1,5 +1,5 @@
 /**
- * Song List Manager for LX Music Web
+ * Song List Manager for BoleServer
  * Handles fetching, rendering and interactions for the "Song List" (Playlist) feature.
  */
 

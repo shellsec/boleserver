@@ -26,6 +26,8 @@ import musicSdkRaw from '@/modules/utils/musicSdk/index.js'
 const musicSdk = musicSdkRaw as any
 import { initUserApis, callUserApiGetMusicUrl, isSourceSupported, getLoadedApis, getLoadedApisCount } from './userApi'
 import * as customSourceHandlers from './customSourceHandlers'
+import { handleSubscriptionRequest } from './sourceSubscriptionHandlers'
+import { hasSourceSubscription } from './sourceSubscriptions'
 import * as fileCache from './fileCache'
 import * as customMusicManager from './customMusicManager'
 import * as serverDownloadQueue from './serverDownloadQueue'
@@ -1290,7 +1292,7 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
         'user.cacheSizeLimit': global.lx.config['user.cacheSizeLimit'] || 2000,
         maxSnapshotNum: global.lx.config.maxSnapshotNum,
         'list.addMusicLocationType': global.lx.config['list.addMusicLocationType'],
-        'player.name': global.lx.config['player.name'] || 'LX Music Web',
+        'player.name': global.lx.config['player.name'] || 'BoleServer',
         'player.enableAuth': global.lx.config['player.enableAuth'] || false,
         port: global.lx.config.port,
         bindIP: global.lx.config.bindIP,
@@ -5944,7 +5946,7 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
           'Cache-Control': 'no-cache'
         })
         res.end(JSON.stringify({
-          'player.name': global.lx.config['player.name'] || 'LX Music Web',
+          'player.name': global.lx.config['player.name'] || 'BoleServer',
           'player.enableAuth': global.lx.config['player.enableAuth'] || false,
           'user.enablePublicRestriction': global.lx.config['user.enablePublicRestriction'] || false,
           'user.enablePublicFavorites': global.lx.config['user.enablePublicFavorites'] || false,
@@ -6372,7 +6374,7 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
 
             let customSourceError: string | null = null
             let attempts: any[] = []
-            if (isSourceSupported(source, verifiedUsername)) {
+            if (isSourceSupported(source, verifiedUsername) || hasSourceSubscription(verifiedUsername)) {
               try {
                 console.log(`[歌曲播放] 使用自定义源解析: ${source} (请求ID: ${reqId || '无'}, 用户: ${verifiedUsername})`)
 
@@ -6951,6 +6953,18 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
         }
       }
 
+      if (pathname === '/api/custom-source/subscription' && (req.method === 'GET' || req.method === 'POST')) {
+        const authenticatedUsername = verifyUserAuth(req)
+        const adminPassword = global.lx.config['admin.password']
+        const isAdmin = !!adminPassword && req.headers['x-frontend-auth'] === adminPassword
+        if (global.lx.config['user.enablePublicRestriction'] && !isAdmin && !authenticatedUsername) {
+          res.writeHead(403, { 'Content-Type': 'application/json' })
+          res.end(JSON.stringify({ success: false, error: '请登录后管理订阅' }))
+          return
+        }
+        return handleSubscriptionRequest(req, res, urlObj, authenticatedUsername, isAdmin)
+      }
+
       if (pathname === '/api/custom-source/import' && req.method === 'POST') {
         return customSourceHandlers.handleImport(req, res)
       }
@@ -7179,7 +7193,7 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
             'user.cacheSizeLimit': global.lx.config['user.cacheSizeLimit'],
             'cache.maxAgeDays': typeof global.lx.config['cache.maxAgeDays'] !== 'undefined' ? global.lx.config['cache.maxAgeDays'] : 14,
             'admin.password': global.lx.config['admin.password'],
-            'player.name': global.lx.config['player.name'] || 'LX Music Web',
+            'player.name': global.lx.config['player.name'] || 'BoleServer',
             'player.enableAuth': global.lx.config['player.enableAuth'] || false,
             'player.password': global.lx.config['player.password'] || '',
             'webdav.enable': global.lx.config['webdav.enable'] ?? false,

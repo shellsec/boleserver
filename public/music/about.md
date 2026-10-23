@@ -312,10 +312,10 @@
   <!-- Hero Section -->
   <div class="about-hero">
     <div class="about-logo-box">
-      <img src="/music/assets/logo.svg" class="about-logo-img" alt="LX Music Logo">
+      <img src="/music/assets/logo.svg" class="about-logo-img" alt="BoleServer Logo">
     </div>
     <div class="about-tagline">Next-Gen Web Audio Streaming Platform</div>
-    <h1 class="about-title">LX Music Web</h1>
+    <h1 class="about-title">BoleServer</h1>
     <p class="about-desc">
       专为现代浏览器量身定制的高性能流媒体音乐播放器。支持多源聚合检索、Subsonic 开放协议桥接、LRU 自动化缓存与 PWA 离线运行，提供原生 App 级的沉浸式聆听体验。
     </p>
@@ -346,15 +346,15 @@
 
     <!-- Quick Action Links -->
     <div class="about-actions">
-      <a href="https://xcq0607.github.io/lxserver/" target="_blank" class="about-btn about-btn-primary">
+      <a href="https://github.com/shellsec/boleserver/tree/main/docs/" target="_blank" class="about-btn about-btn-primary">
         <i class="fas fa-book"></i>
         <span>帮助与使用文档</span>
       </a>
-      <a href="https://github.com/XCQ0607/lxserver" target="_blank" class="about-btn about-btn-secondary">
+      <a href="https://github.com/shellsec/boleserver" target="_blank" class="about-btn about-btn-secondary">
         <i class="fab fa-github"></i>
         <span>GitHub 源码仓库</span>
       </a>
-      <a href="https://github.com/XCQ0607/lxserver/issues" target="_blank" class="about-btn about-btn-secondary">
+      <a href="https://github.com/shellsec/boleserver/issues" target="_blank" class="about-btn about-btn-secondary">
         <i class="fas fa-circle-exclamation"></i>
         <span>提交反馈</span>
       </a>
@@ -596,3 +596,5 @@
     Copyright © 2026 <a href="https://github.com/XCQ0607/lxserver" target="_blank" style="color: inherit; font-weight: 600;">XCQ0607 / LX Music Server Project</a>. All rights reserved.
   </div>
 </div>
+
+<p>BoleServer maintained by <a href="https://github.com/shellsec/boleserver">shellsec</a>; based on <a href="https://github.com/XCQ0607/lxserver">XCQ0607/lxserver</a>. Original copyright and Apache-2.0 license retained.</p>

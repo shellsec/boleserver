@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  lx-sync-server:
+  boleserver:
     build: .
-    container_name: lx-sync-server
+    container_name: boleserver
     restart: always
     ports:
       - "9527:9527"

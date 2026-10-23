@@ -1,6 +1,6 @@
 {
-    "name": "LX Music Web",
-    "short_name": "LX Music",
+    "name": "BoleServer",
+    "short_name": "BoleServer",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#ffffff",

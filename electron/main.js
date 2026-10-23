@@ -129,7 +129,7 @@ function showPlayerWindow() {
 
     if (!playerWindow || playerWindow.isDestroyed()) {
         playerWindow = new BrowserWindow({
-            title: 'LX Music Player',
+            title: 'BoleServer Player',
             width: 1200,
             height: 850,
             minWidth: 900,
@@ -166,7 +166,7 @@ function showAdminWindow() {
 
     if (!adminWindow || adminWindow.isDestroyed()) {
         adminWindow = new BrowserWindow({
-            title: 'LX Music Server Admin',
+            title: 'BoleServer Admin',
             width: 1200,
             height: 850,
             minWidth: 900,
@@ -191,7 +191,7 @@ function showAdminWindow() {
 function createTray() {
     const icon = getIcon('tray.png') || nativeImage.createEmpty()
     tray = new Tray(icon)
-    tray.setToolTip(`LX Music Server (${SERVER_PORT})`)
+    tray.setToolTip(`BoleServer (${SERVER_PORT})`)
 
     const menu = Menu.buildFromTemplate([
         { label: `● 运行中 (端口: ${SERVER_PORT})`, enabled: false },

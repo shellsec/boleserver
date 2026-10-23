@@ -1,6 +1,6 @@
 # 服务端 API 参考
 
-LX Sync Server 提供了多种 RESTful 风格的 API 接口，用于自动化获取和操控同步服务器数据以及状态。
+BoleServer 提供了多种 RESTful 风格的 API 接口，用于自动化获取和操控同步服务器数据以及状态。
 
 ## 概述
 

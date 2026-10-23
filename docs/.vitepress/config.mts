@@ -2,15 +2,15 @@ import { defineConfig } from 'vitepress'
 import pkg from '../../package.json'
 
 export default defineConfig({
-  base: "/lxserver/",
+  base: "/boleserver/",
   lastUpdated: true,
   head: [
-    ['link', { rel: 'icon', href: '/lxserver/icon.svg' }]
+    ['link', { rel: 'icon', href: '/boleserver/icon.svg' }]
   ],
   themeConfig: {
     logo: '/icon.svg',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/XCQ0607/lxserver' }
+      { icon: 'github', link: 'https://github.com/shellsec/boleserver' }
     ],
     search: {
       provider: 'local'
@@ -20,7 +20,7 @@ export default defineConfig({
     root: {
       label: '简体中文',
       lang: 'zh-CN',
-      title: "LX Sync Server",
+      title: "BoleServer",
       description: "一个增强版的 LX Music 数据同步服务端与 Web 播放器",
       themeConfig: {
         nav: [
@@ -32,10 +32,10 @@ export default defineConfig({
           {
             text: `v${pkg.version}`,
             items: [
-              { text: `最新版本: v${pkg.version}`, link: 'https://github.com/XCQ0607/lxserver/releases' },
-              { text: '更新日志 (Changelog)', link: 'https://github.com/XCQ0607/lxserver/blob/main/changelog.md' },
-              { text: '发布历史 (Releases)', link: 'https://github.com/XCQ0607/lxserver/releases' },
-              { text: '源码仓库 (GitHub)', link: 'https://github.com/XCQ0607/lxserver' }
+              { text: `最新版本: v${pkg.version}`, link: 'https://github.com/shellsec/boleserver/releases' },
+              { text: '更新日志 (Changelog)', link: 'https://github.com/shellsec/boleserver/blob/main/changelog.md' },
+              { text: '发布历史 (Releases)', link: 'https://github.com/shellsec/boleserver/releases' },
+              { text: '源码仓库 (GitHub)', link: 'https://github.com/shellsec/boleserver' }
             ]
           }
         ],
@@ -79,7 +79,7 @@ export default defineConfig({
           next: '下一页'
         },
         editLink: {
-          pattern: 'https://github.com/XCQ0607/lxserver/edit/main/docs/:path',
+          pattern: 'https://github.com/shellsec/boleserver/edit/main/docs/:path',
           text: '在 GitHub 上编辑此页'
         },
         footer: {
@@ -92,7 +92,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       link: '/en/',
-      title: "LX Sync Server",
+      title: "BoleServer",
       description: "An enhanced data synchronization server and Web player for LX Music",
       themeConfig: {
         nav: [
@@ -104,10 +104,10 @@ export default defineConfig({
           {
             text: `v${pkg.version}`,
             items: [
-              { text: `Latest: v${pkg.version}`, link: 'https://github.com/XCQ0607/lxserver/releases' },
-              { text: 'Changelog', link: 'https://github.com/XCQ0607/lxserver/blob/main/changelog.md' },
-              { text: 'Release History', link: 'https://github.com/XCQ0607/lxserver/releases' },
-              { text: 'Repository', link: 'https://github.com/XCQ0607/lxserver' }
+              { text: `Latest: v${pkg.version}`, link: 'https://github.com/shellsec/boleserver/releases' },
+              { text: 'Changelog', link: 'https://github.com/shellsec/boleserver/blob/main/changelog.md' },
+              { text: 'Release History', link: 'https://github.com/shellsec/boleserver/releases' },
+              { text: 'Repository', link: 'https://github.com/shellsec/boleserver' }
             ]
           }
         ],
@@ -151,7 +151,7 @@ export default defineConfig({
           next: 'Next page'
         },
         editLink: {
-          pattern: 'https://github.com/XCQ0607/lxserver/edit/main/docs/:path',
+          pattern: 'https://github.com/shellsec/boleserver/edit/main/docs/:path',
           text: 'Edit this page on GitHub'
         },
         footer: {

@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: "LX Sync Server"
+  name: "BoleServer"
   text: "私有云音乐与同步服务中心"
   tagline: "聚合全网多源检索 · 本地高保真曲库 · LX 云端同步 · Subsonic 生态互联"
   image:
     src: /icon.svg
-    alt: LX Sync Server
+    alt: BoleServer
   actions:
     - theme: brand
       text: 快速上手
@@ -17,7 +17,7 @@ hero:
       link: /guide/web-player
     - theme: alt
       text: GitHub 仓库
-      link: https://github.com/XCQ0607/lxserver
+      link: https://github.com/shellsec/boleserver
 
 features:
   - icon: 🎵
@@ -47,7 +47,7 @@ features:
     <p>随时随地在任何设备与浏览器中畅享您的私人音乐世界</p>
   </div>
   <div class="showcase-frame">
-    <img src="/player.png" alt="LX Music Web Player Interface" />
+    <img src="/player.png" alt="BoleServer Player Interface" />
   </div>
 </div>
 
@@ -55,10 +55,10 @@ features:
   <div class="status-badge-title">开源项目生态与实时状态</div>
   <div class="status-badges">
     <img src="https://img.shields.io/badge/build-passing-brightgreen?style=flat-square" alt="Build Status">
-    <img src="https://img.shields.io/github/package-json/v/XCQ0607/lxserver?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/github/package-json/v/shellsec/boleserver?style=flat-square" alt="Version">
     <img src="https://img.shields.io/badge/node-%3E%3D20-green?style=flat-square" alt="Node Version">
-    <img src="https://img.shields.io/github/license/XCQ0607/lxserver?style=flat-square" alt="License">
-    <a href="https://github.com/XCQ0607/lxserver/stargazers"><img src="https://img.shields.io/github/stars/XCQ0607/lxserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
-    <a href="https://github.com/XCQ0607/lxserver/commits/main"><img src="https://img.shields.io/github/last-commit/XCQ0607/lxserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
+    <img src="https://img.shields.io/github/license/shellsec/boleserver?style=flat-square" alt="License">
+    <a href="https://github.com/shellsec/boleserver/stargazers"><img src="https://img.shields.io/github/stars/shellsec/boleserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
+    <a href="https://github.com/shellsec/boleserver/commits/main"><img src="https://img.shields.io/github/last-commit/shellsec/boleserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
   </div>
 </div>

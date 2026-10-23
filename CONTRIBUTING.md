@@ -27,9 +27,9 @@ cd lxserver
 ```
 
 ### 3. 设置上游仓库 (Upstream)
-你需要链接到源仓库 (XCQ0607/lxserver)，以便同步最新的代码：
+你需要链接到源仓库 (shellsec/boleserver)，以便同步最新的代码：
 ```bash
-git remote add upstream https://github.com/XCQ0607/lxserver.git
+git remote add upstream https://github.com/shellsec/boleserver.git
 ```
 
 ### 4. 创建分支

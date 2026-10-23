@@ -1,37 +1,42 @@
-# LX Music Sync Server (Enhanced Edition)
+# BoleServer
 
-![lxserver](https://socialify.git.ci/XCQ0607/lxserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/XCQ0607/lxserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
+> BoleServer 是 shellsec 维护的 LX 音源服务版本，基于 [XCQ0607/lxserver](https://github.com/XCQ0607/lxserver)，保留 LX Music 客户端和音源脚本兼容性。原项目版权和 Apache-2.0 许可继续保留。
+>
+> 新增：[LX 音源订阅与自动切换](md/source-subscriptions.md)。此仓库当前提供源码；桌面安装包和容器镜像需要运行本仓库构建工作流后生成，未沿用上游已发布产物。
+
+
+![lxserver](https://socialify.git.ci/shellsec/boleserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/shellsec/boleserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
 
 <div align="center">
   <!-- <img src="public/icon.svg" width="120" height="120" alt="Icon"> -->
   <!-- <br>
-  <h1>LX Sync Server</h1> -->
+  <h1>BoleServer</h1> -->
   <p>
     <img src="https://img.shields.io/badge/build-passing-brightgreen?style=flat-square" alt="Build Status">
-    <img src="https://img.shields.io/github/package-json/v/XCQ0607/lxserver?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/github/package-json/v/shellsec/boleserver?style=flat-square" alt="Version">
     <img src="https://img.shields.io/badge/node-%3E%3D20-green?style=flat-square" alt="Node Version">
-    <img src="https://img.shields.io/github/license/XCQ0607/lxserver?style=flat-square" alt="License">
+    <img src="https://img.shields.io/github/license/shellsec/boleserver?style=flat-square" alt="License">
     <br>
     <br>
-    <a href="https://github.com/XCQ0607/lxserver/stargazers"><img src="https://img.shields.io/github/stars/XCQ0607/lxserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
-    <a href="https://github.com/XCQ0607/lxserver/network/members"><img src="https://img.shields.io/github/forks/XCQ0607/lxserver?style=flat-square" alt="GitHub forks"></a>
-    <a href="https://github.com/XCQ0607/lxserver/issues"><img src="https://img.shields.io/github/issues/XCQ0607/lxserver?style=flat-square&color=red" alt="GitHub issues"></a>
-    <a href="https://github.com/XCQ0607/lxserver/commits/main"><img src="https://img.shields.io/github/last-commit/XCQ0607/lxserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
-    <img src="https://img.shields.io/github/commit-activity/m/XCQ0607/lxserver?style=flat-square&color=ff69b4" alt="Commit Activity">
-    <a href="https://github.com/XCQ0607/lxserver/releases"><img src="https://img.shields.io/github/downloads/XCQ0607/lxserver/total?style=flat-square&color=blue" alt="Total Downloads"></a>
+    <a href="https://github.com/shellsec/boleserver/stargazers"><img src="https://img.shields.io/github/stars/shellsec/boleserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
+    <a href="https://github.com/shellsec/boleserver/network/members"><img src="https://img.shields.io/github/forks/shellsec/boleserver?style=flat-square" alt="GitHub forks"></a>
+    <a href="https://github.com/shellsec/boleserver/issues"><img src="https://img.shields.io/github/issues/shellsec/boleserver?style=flat-square&color=red" alt="GitHub issues"></a>
+    <a href="https://github.com/shellsec/boleserver/commits/main"><img src="https://img.shields.io/github/last-commit/shellsec/boleserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
+    <img src="https://img.shields.io/github/commit-activity/m/shellsec/boleserver?style=flat-square&color=ff69b4" alt="Commit Activity">
+    <a href="https://github.com/shellsec/boleserver/releases"><img src="https://img.shields.io/github/downloads/shellsec/boleserver/total?style=flat-square&color=blue" alt="Total Downloads"></a>
   </p>
   <p>
-    <a href="https://www.star-history.com/xcq0607/lxserver">
+    <a href="https://www.star-history.com/shellsec/boleserver">
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending&theme=dark" />
-        <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending" />
-        <img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending" />
+        <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending&theme=dark" />
+        <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending" />
+        <img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending" />
       </picture>
     </a>
   </p>
 </div>
 
-[帮助文档 Documentation](https://xcq0607.github.io/lxserver/) | [同步服务器 SyncServer](md/lxserver.md) | [更新日志 Changelog](changelog.md) | [English](README_EN.md)
+[帮助文档 Documentation](https://github.com/shellsec/boleserver/tree/main/docs/) | [同步服务器 SyncServer](md/lxserver.md) | [更新日志 Changelog](changelog.md) | [English](README_EN.md)
 
 ---
 
@@ -140,9 +145,9 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 
 ### 方式一：桌面客户端
 
-可以通过桌面端更方便地运行 LX Music Sync Server，支持 Windows、macOS 和 Linux。
+可以通过桌面端更方便地运行 BoleServer，支持 Windows、macOS 和 Linux。
 
-- **📦 最新版本下载**: [GitHub Releases](https://github.com/XCQ0607/lxserver/releases/latest)
+- **📦 最新版本下载**: [GitHub Releases](https://github.com/shellsec/boleserver/releases/latest)
 - **✨ 桌面端优势**:
   - **单窗口管理**: 服务器管理与 Web 播放器合二为一，界面更统一。
   - **托盘常驻**: 窗口关闭后自动缩回托盘，服务在后台始终运行。
@@ -152,8 +157,8 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 
 本项目支持从 Docker Hub 或 GitHub Packages 拉取镜像：
 
-- **Docker Hub**: `xcq0607/lxserver:latest`
-- **GitHub Packages**: `ghcr.io/xcq0607/lxserver:latest`
+- **Docker Hub**: `shellsec/boleserver:latest`
+- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
 
 **Docker Run 示例：**
 
@@ -166,7 +171,7 @@ docker run -d \
   -v $(pwd)/music:/server/music \
   --name lx-sync-server \
   --restart unless-stopped \
-  xcq0607/lxserver:latest
+  shellsec/boleserver:latest
 ```
 
 **Docker Compose 示例：**
@@ -177,7 +182,7 @@ docker run -d \
 version: '3'
 services:
   lx-sync-server:
-    image: xcq0607/lxserver:latest
+    image: shellsec/boleserver:latest
     container_name: lx-sync-server
     restart: unless-stopped
     ports:
@@ -200,7 +205,7 @@ services:
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/XCQ0607/lxserver.git && cd lxserver
+git clone https://github.com/shellsec/boleserver.git && cd boleserver
 
 # 2. 安装依赖并编译
 npm ci && npm run build
@@ -268,8 +273,8 @@ npm start
 | `ADMIN_PATH`                               | `admin.path`                               | 后台管理界面访问路径                                                                               | `/admin`           |
 | `PLAYER_PATH`                              | `player.path`                              | Web 播放器访问路径 (默认为根路径 `/`)                                                            | `/`                |
 | `ADMIN_PASSWORD`                           | `admin.password`                           | 管理员密码（用于登录控制台和音乐播放器管理员登录）                                                 | `123456`           |
-| `SERVER_NAME`                              | `serverName`                               | 同步服务名称（客户端连接展示名称及管理后台标题）                                                   | `LX Sync Server`   |
-| `PLAYER_NAME`                              | `player.name`                              | Web 播放器名称（播放器网页标题及登录卡片标题）                                                     | `LX Music Web`     |
+| `SERVER_NAME`                              | `serverName`                               | 同步服务名称（客户端连接展示名称及管理后台标题）                                                   | `BoleServer`   |
+| `PLAYER_NAME`                              | `player.name`                              | Web 播放器名称（播放器网页标题及登录卡片标题）                                                     | `BoleServer`     |
 | `ENABLE_DEBUG`                             | `debug.enabled`                            | 是否启用 DEBUG 模式 (开启后输出详细调试日志与音源内部日志，默认关闭)                               | `false`            |
 | `MAX_SNAPSHOT_NUM`                         | `maxSnapshotNum`                           | 保留的最大快照数量                                                                                 | `10`               |
 | `CONFIG_PATH`                              | -                                            | 指定外部配置文件的绝对路径 (默认使用 `data/config.js`)                                           | -                    |
@@ -355,17 +360,17 @@ npm start
 
 ### 👥 贡献者 (Contributors)
 
-<a href="https://github.com/xcq0607/lxserver/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=xcq0607/lxserver" />
+<a href="https://github.com/shellsec/boleserver/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=shellsec/boleserver" />
 </a>
 
 ## 📈 Star History
 
-<a href="https://www.star-history.com/?repos=xcq0607%2Flxserver&type=timeline&logscale=&releases=&legend=bottom-right">
+<a href="https://www.star-history.com/?repos=shellsec%2Fboleserver&type=timeline&logscale=&releases=&legend=bottom-right">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&theme=dark&logscale&legend=bottom-right" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&logscale&legend=bottom-right" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&logscale&legend=bottom-right" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&theme=dark&logscale&legend=bottom-right" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&logscale&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&logscale&legend=bottom-right" />
  </picture>
 </a>
 
@@ -375,7 +380,7 @@ npm start
 
 Apache License 2.0 copyright (c) 2026 [xcq0607](https://github.com/xcq0607)
 
-**词语约定**：本协议中的“本项目”指 LX Music Web 播放器；“使用者”指签署本协议的使用者；“官方音乐平台”指对本项目内置的包括酷我、酷狗、咪咕等音乐源的官方平台统称；“版权数据”指包括但不限于图像、音频、名字等在内的他人拥有所属版权的数据。
+**词语约定**：本协议中的“本项目”指 BoleServer 播放器；“使用者”指签署本协议的使用者；“官方音乐平台”指对本项目内置的包括酷我、酷狗、咪咕等音乐源的官方平台统称；“版权数据”指包括但不限于图像、音频、名字等在内的他人拥有所属版权的数据。
 
 ### 一、数据来源
 

@@ -6,11 +6,11 @@
 
 | Information | Details |
 | :--- | :--- |
-| **Latest Version** | ![Version](https://img.shields.io/github/package-json/v/XCQ0607/lxserver?style=flat-square) (Auto-detected from `package.json`) |
+| **Latest Version** | ![Version](https://img.shields.io/github/package-json/v/shellsec/boleserver?style=flat-square) (Auto-detected from `package.json`) |
 | **Runtime Requirements** | Node.js >= 20 |
 | **License** | Apache-2.0 License |
-| **Changelog** | [View Changelog](https://github.com/XCQ0607/lxserver/blob/main/changelog.md) |
-| **Repository** | [GitHub: XCQ0607/lxserver](https://github.com/XCQ0607/lxserver) |
+| **Changelog** | [View Changelog](https://github.com/shellsec/boleserver/blob/main/changelog.md) |
+| **Repository** | [GitHub: shellsec/boleserver](https://github.com/shellsec/boleserver) |
 | **Documentation Updates** | Automatically generated at the bottom of each document based on Git commit timestamps (Beijing Time UTC+8) |
 
 ## Development Intent

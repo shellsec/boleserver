@@ -1,34 +1,39 @@
-# LX Music Sync Server (Enhanced Edition)
+# BoleServer
 
-![lxserver](https://socialify.git.ci/XCQ0607/lxserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/XCQ0607/lxserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
+> BoleServer is maintained by shellsec and based on [XCQ0607/lxserver](https://github.com/XCQ0607/lxserver). LX Music clients and custom-source scripts remain compatible. Original copyright notices and the Apache-2.0 license are retained.
+>
+> This fork adds mobile-compatible [LX source subscriptions and failover](md/source-subscriptions.md). Source is available here; fork-specific desktop binaries and container images require running the corresponding build workflows.
+
+
+![lxserver](https://socialify.git.ci/shellsec/boleserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/shellsec/boleserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
 
 <div align="center">
   <p>
     <img src="https://img.shields.io/badge/build-passing-brightgreen?style=flat-square" alt="Build Status">
-    <img src="https://img.shields.io/github/package-json/v/XCQ0607/lxserver?style=flat-square" alt="Version">
+    <img src="https://img.shields.io/github/package-json/v/shellsec/boleserver?style=flat-square" alt="Version">
     <img src="https://img.shields.io/badge/node-%3E%3D20-green?style=flat-square" alt="Node Version">
-    <img src="https://img.shields.io/github/license/XCQ0607/lxserver?style=flat-square" alt="License">
+    <img src="https://img.shields.io/github/license/shellsec/boleserver?style=flat-square" alt="License">
     <br>
     <br>
-    <a href="https://github.com/XCQ0607/lxserver/stargazers"><img src="https://img.shields.io/github/stars/XCQ0607/lxserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
-    <a href="https://github.com/XCQ0607/lxserver/network/members"><img src="https://img.shields.io/github/forks/XCQ0607/lxserver?style=flat-square" alt="GitHub forks"></a>
-    <a href="https://github.com/XCQ0607/lxserver/issues"><img src="https://img.shields.io/github/issues/XCQ0607/lxserver?style=flat-square&color=red" alt="GitHub issues"></a>
-    <a href="https://github.com/XCQ0607/lxserver/commits/main"><img src="https://img.shields.io/github/last-commit/XCQ0607/lxserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
-    <img src="https://img.shields.io/github/commit-activity/m/XCQ0607/lxserver?style=flat-square&color=ff69b4" alt="Commit Activity">
-    <a href="https://github.com/XCQ0607/lxserver/releases"><img src="https://img.shields.io/github/downloads/XCQ0607/lxserver/total?style=flat-square&color=blue" alt="Total Downloads"></a>
+    <a href="https://github.com/shellsec/boleserver/stargazers"><img src="https://img.shields.io/github/stars/shellsec/boleserver?style=flat-square&color=ffe16b" alt="GitHub stars"></a>
+    <a href="https://github.com/shellsec/boleserver/network/members"><img src="https://img.shields.io/github/forks/shellsec/boleserver?style=flat-square" alt="GitHub forks"></a>
+    <a href="https://github.com/shellsec/boleserver/issues"><img src="https://img.shields.io/github/issues/shellsec/boleserver?style=flat-square&color=red" alt="GitHub issues"></a>
+    <a href="https://github.com/shellsec/boleserver/commits/main"><img src="https://img.shields.io/github/last-commit/shellsec/boleserver?style=flat-square&color=blueviolet" alt="Last Commit"></a>
+    <img src="https://img.shields.io/github/commit-activity/m/shellsec/boleserver?style=flat-square&color=ff69b4" alt="Commit Activity">
+    <a href="https://github.com/shellsec/boleserver/releases"><img src="https://img.shields.io/github/downloads/shellsec/boleserver/total?style=flat-square&color=blue" alt="Total Downloads"></a>
   </p>
   <p>
-    <a href="https://www.star-history.com/xcq0607/lxserver">
+    <a href="https://www.star-history.com/shellsec/boleserver">
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending&theme=dark" />
-        <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending" />
-        <img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=XCQ0607/lxserver&type=trending" />
+        <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending&theme=dark" />
+        <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending" />
+        <img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=shellsec/boleserver&type=trending" />
       </picture>
     </a>
   </p>
 </div>
 
-[Documentation](https://xcq0607.github.io/lxserver/) | [SyncServer](md/lxserver_EN.md) | [Changelog](changelog.md) | [中文版](README.md)
+[Documentation](https://github.com/shellsec/boleserver/tree/main/docs/) | [SyncServer](md/lxserver_EN.md) | [Changelog](changelog.md) | [中文版](README.md)
 
 ---
 This project features a powerful built-in **Web Player**, allowing you to enjoy music anywhere in your browser. It also serves as an enhanced [LX Music Data Sync Server](md/lxserver_EN.md).
@@ -134,9 +139,9 @@ Built with **Node.js**, supporting multiple deployment methods.
 
 ### Option 1: Desktop Client
 
-You can now run LX Music Sync Server more conveniently via our Desktop Client, available for Windows, macOS, and Linux.
+You can now run BoleServer more conveniently via our Desktop Client, available for Windows, macOS, and Linux.
 
-- **📦 Download Latest**: [GitHub Releases](https://github.com/XCQ0607/lxserver/releases/latest)
+- **📦 Download Latest**: [GitHub Releases](https://github.com/shellsec/boleserver/releases/latest)
 - **✨ Key Advantages**:
     - **Single Window**: Integrated management dashboard and Web player for a unified experience.
     - **System Tray**: Minimizes to tray on close, ensuring the sync service stays active in the background.
@@ -147,8 +152,8 @@ You can now run LX Music Sync Server more conveniently via our Desktop Client, a
 ### Option 2: Containerized Deployment via Docker
 
 This project supports pulling images from Docker Hub or GitHub Packages:
-- **Docker Hub**: `xcq0607/lxserver:latest`
-- **GitHub Packages**: `ghcr.io/xcq0607/lxserver:latest`
+- **Docker Hub**: `shellsec/boleserver:latest`
+- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
 
 **Docker Run Example:**
 
@@ -161,7 +166,7 @@ docker run -d \
   -v $(pwd)/music:/server/music \
   --name lx-sync-server \
   --restart unless-stopped \
-  xcq0607/lxserver:latest
+  shellsec/boleserver:latest
 ```
 
 **Docker Compose Example:**
@@ -172,7 +177,7 @@ Create a `docker-compose.yml` file:
 version: '3'
 services:
   lx-sync-server:
-    image: xcq0607/lxserver:latest
+    image: shellsec/boleserver:latest
     container_name: lx-sync-server
     restart: unless-stopped
     ports:
@@ -195,7 +200,7 @@ services:
 
 ```bash
 # 1. Clone project
-git clone https://github.com/XCQ0607/lxserver.git && cd lxserver
+git clone https://github.com/shellsec/boleserver.git && cd boleserver
 
 # 2. Install dependencies and build
 npm ci && npm run build
@@ -258,8 +263,8 @@ The configuration file is persisted by default in the data directory at `data/co
 | `ADMIN_PATH` | `admin.path` | Backend management interface path | `/admin` |
 | `PLAYER_PATH` | `player.path` | Web player access path (default root `/`) | `/` |
 | `ADMIN_PASSWORD` | `admin.password` | Admin password (for management console and music player admin login) | `123456` |
-| `SERVER_NAME` | `serverName` | Sync service name (shown in client pairing & admin console title) | `LX Sync Server` |
-| `PLAYER_NAME` | `player.name` | Web player name (shown in web player title & login card) | `LX Music Web` |
+| `SERVER_NAME` | `serverName` | Sync service name (shown in client pairing & admin console title) | `BoleServer` |
+| `PLAYER_NAME` | `player.name` | Web player name (shown in web player title & login card) | `BoleServer` |
 | `ENABLE_DEBUG` | `debug.enabled` | Enable DEBUG mode (verbose debug and source sandbox logs, default false) | `false` |
 | `MAX_SNAPSHOT_NUM` | `maxSnapshotNum` | Max snapshots to keep | `10` |
 | `CONFIG_PATH` | - | Absolute path to external config file (defaults to `data/config.js`) | - |
@@ -345,18 +350,18 @@ Anonymous telemetry via PostHog is used for:
 
 ### 👥 Contributors
 
-<a href="https://github.com/xcq0607/lxserver/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=xcq0607/lxserver" />
+<a href="https://github.com/shellsec/boleserver/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=shellsec/boleserver" />
 </a>
 
 ## 📈 Star History
 
 
-<a href="https://www.star-history.com/?repos=xcq0607%2Flxserver&type=timeline&logscale=&releases=&legend=bottom-right">
+<a href="https://www.star-history.com/?repos=shellsec%2Fboleserver&type=timeline&logscale=&releases=&legend=bottom-right">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&theme=dark&logscale&legend=bottom-right" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&logscale&legend=bottom-right" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=xcq0607/lxserver&type=timeline&logscale&legend=bottom-right" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&theme=dark&logscale&legend=bottom-right" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&logscale&legend=bottom-right" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=shellsec/boleserver&type=timeline&logscale&legend=bottom-right" />
  </picture>
 </a>
 

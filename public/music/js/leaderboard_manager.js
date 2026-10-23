@@ -1,5 +1,5 @@
 /**
- * Leaderboard Manager for LX Music Web
+ * Leaderboard Manager for BoleServer
  * 排行榜功能模块 — 风格与 SongListManager 保持一致
  */
 

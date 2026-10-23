@@ -332,7 +332,7 @@
       </svg>
     </div>
     <div class="about-tagline">High-Performance Sync & Streaming Gateway</div>
-    <h1 class="about-title">LX Music Sync Server</h1>
+    <h1 class="about-title">BoleServer</h1>
     <p class="about-desc">
       企业级私有化音乐数据同步中枢与流媒体服务网关。深度整合 Web 可视化运维控制台、全自动时间胶囊快照回滚、WebDAV 云端灾备、Subsonic 开放流媒体协议以及内置现代 Web 播放器。
     </p>
@@ -371,15 +371,15 @@
         `<i class="fas fa-play"></i>`
         `<span>`打开 Web 播放器
       `</a>`
-      `<a href="https://xcq0607.github.io/lxserver/" target="_blank" class="about-btn about-btn-secondary">`
+      `<a href="https://github.com/shellsec/boleserver/tree/main/docs/" target="_blank" class="about-btn about-btn-secondary">`
         `<i class="fas fa-book"></i>`
         `<span>`帮助与使用文档
       `</a>`
-      `<a href="https://github.com/XCQ0607/lxserver" target="_blank" class="about-btn about-btn-secondary">`
+      `<a href="https://github.com/shellsec/boleserver" target="_blank" class="about-btn about-btn-secondary">`
         `<i class="fab fa-github"></i>`
         `<span>`GitHub 源码仓库
       `</a>`
-      `<a href="https://github.com/XCQ0607/lxserver/issues" target="_blank" class="about-btn about-btn-secondary">`
+      `<a href="https://github.com/shellsec/boleserver/issues" target="_blank" class="about-btn about-btn-secondary">`
         `<i class="fas fa-circle-exclamation"></i>`
         `<span>`提交问题与建议
       `</a>`
@@ -627,3 +627,5 @@
     Copyright © 2026 <a href="https://github.com/XCQ0607/lxserver" target="_blank" style="color: inherit; font-weight: 600;">XCQ0607 / LX Music Server Project</a>. All rights reserved.
   </div>
 </div>
+
+<p>BoleServer maintained by <a href="https://github.com/shellsec/boleserver">shellsec</a>; based on <a href="https://github.com/XCQ0607/lxserver">XCQ0607/lxserver</a>. Original copyright and Apache-2.0 license retained.</p>
