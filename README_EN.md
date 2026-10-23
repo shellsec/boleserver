@@ -101,7 +101,9 @@ You can now run BoleServer more conveniently via our Desktop Client, available f
     - **System Tray**: Minimizes to tray on close, ensuring the sync service stays active in the background.
     - **Port Conflict Resolution**: Automatically detects and switches ports if the default is in use.
     - **Setup Wizard**: Guided data path selection on first launch, supports **Portable Mode**.
-    - **Multi-Arch Support**: Builds for Windows (x64/x86/ARM64 Setup & Portable), macOS (Intel x64 & Apple Silicon arm64), and Linux (amd64/arm64/armv7l deb/AppImage).
+    - **Published architectures**: Windows x64, macOS Intel x64 / Apple Silicon arm64, and Linux x64. See actual release assets for other builds.
+
+Download the compiled desktop packages from [BoleServer v2.1.3-bole.1](https://github.com/shellsec/boleserver/releases/tag/v2.1.3-bole.1). These include the server and do not need Docker. The release includes SHA256 checksums. The [Chinese download table](README.md#boleserver-v213-bole1-安装包) offers optional gh-proxy.com download links.
 
 ### Option 2: Docker (recommended)
 

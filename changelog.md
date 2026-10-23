@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.1.3-bole.1 (2026-10-23)
+
+BoleServer 首次跨平台安装包发布，基于 LXServer 2.1.3。
+
+- 提供 Windows x64 安装版与便携版、macOS Intel / Apple Silicon DMG、Linux x64 AppImage 与 amd64 deb。
+- BoleServer 专属音乐馆 / 播放室风格、五套深浅配色与手机页面优化。
+- LX 音源订阅、按顺序自动切换、失败后订阅更新与有限重试。
+- 首次进入后台设置管理密码，移除内置示例同步账号；可在页面修改密码。
+- Docker GHCR 双架构镜像、一键安装及可选 gh-proxy.com 加速下载。
+- 保留上游版权、许可及历史贡献记录。安装包不包含部署密码、用户配置、音源脚本、音乐或缓存。
+
 ## v2.1.3 (2026-10-13)
 
 ### 🌟 新增功能与体验升级

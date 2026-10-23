@@ -2,9 +2,6 @@ name: Build and Release
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
 
 jobs:
   # ── 1. 初始化阶段：获取版本号和更新日志 ──────────────────────────────────────

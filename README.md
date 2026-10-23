@@ -127,7 +127,7 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 
 ## 🚀 快速启动
 
-本地私有仓库的 Windows、macOS、Linux 桌面构建步骤见 [跨平台构建说明](md/CROSS_PLATFORM_BUILD.md)。
+Windows、macOS、Linux 桌面本地构建步骤见 [跨平台构建说明](md/CROSS_PLATFORM_BUILD.md)。
 
 本项目基于 **Node.js** 开发，支持多种部署方式。
 
@@ -139,7 +139,22 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 - **✨ 桌面端优势**:
   - **单窗口管理**: 服务器管理与 Web 播放器合二为一，界面更统一。
   - **托盘常驻**: 窗口关闭后自动缩回托盘，服务在后台始终运行。
-  - **全架构支持**: 提供 Windows (x64/x86/ARM64 Setup 及 Portable)、macOS (Intel/Apple Silicon) 及 Linux (amd64/arm64/armv7l) 全家桶。
+  - **本次已发布架构**: Windows x64、macOS Intel / Apple Silicon、Linux x64。其他架构以实际发布附件为准。
+
+#### BoleServer v2.1.3-bole.1 安装包
+
+桌面程序内置服务端，不需要 Docker。安装或运行后，首次选择数据目录并在后台设置管理密码；更新时保留数据目录。
+
+| 平台 | 国内加速 | GitHub 原地址 |
+| --- | --- | --- |
+| Windows x64 安装版 | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64%20Setup.exe) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64%20Setup.exe) |
+| Windows x64 便携版 | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64%20Portable.exe) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64%20Portable.exe) |
+| macOS Apple Silicon | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20arm64.dmg) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20arm64.dmg) |
+| macOS Intel | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64.dmg) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x64.dmg) |
+| Linux x64 AppImage | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x86_64.AppImage) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20x86_64.AppImage) |
+| Linux amd64 Debian/Ubuntu | [加速下载](https://gh-proxy.com/https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20amd64.deb) | [直连下载](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/BoleServer%202.1.3%20amd64.deb) |
+
+[全部附件与版本说明](https://github.com/shellsec/boleserver/releases/tag/v2.1.3-bole.1) · [SHA256 校验文件](https://github.com/shellsec/boleserver/releases/download/v2.1.3-bole.1/SHA256SUMS-all.txt)
 
 ### 方式二：使用 Docker（推荐）
 
