@@ -15,7 +15,16 @@ mkdir -p "$bole_dir"
 bole_dir=$(cd "$bole_dir" && pwd -P)
 cd "$bole_dir"
 # Pull before modifying the installation, so unavailable images do not disrupt it.
-docker pull ghcr.io/shellsec/boleserver:latest
+bole_image=${BOLE_IMAGE:-ghcr.io/shellsec/boleserver:latest}
+[[ $bole_image =~ ^[a-zA-Z0-9./:_@-]+$ ]] || fail 'BOLE_IMAGE 不是有效镜像地址。'
+docker pull "$bole_image"
+if [[ -n ${BOLE_IMAGE:-} ]]; then
+  bole_env=$(mktemp "$bole_dir/.env.bole.XXXXXX")
+  chmod 600 "$bole_env"
+  if [[ -f .env ]]; then awk '!/^BOLE_IMAGE=/' .env > "$bole_env"; fi
+  printf 'BOLE_IMAGE=%s\n' "$BOLE_IMAGE" >> "$bole_env"
+  mv "$bole_env" "$bole_dir/.env"
+fi
 for folder in data cache music cover_cache; do
   install -d -o 1000 -g 1000 -m 0755 "$bole_dir/$folder"
 done
@@ -29,7 +38,7 @@ else
 # Save as /opt/boleserver/compose.yaml. First visit /admin/ to choose a password.
 services:
   boleserver:
-    image: ghcr.io/shellsec/boleserver:latest
+    image: ${BOLE_IMAGE:-ghcr.io/shellsec/boleserver:latest}
     container_name: boleserver
     restart: unless-stopped
     ports:
@@ -56,8 +65,10 @@ for ((attempt=0; attempt<60; attempt++)); do
   bole_health=$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "$bole_id")
   if [[ $bole_health == healthy ]]; then
     bole_ip=$(hostname -I 2>/dev/null | awk '{print $1}')
-    printf '\nBoleServer 已启动。目录：%s\n' "$bole_dir"
-    printf '后台：http://%s:9527/admin/\n播放器：http://%s:9527/\n' "${bole_ip:-服务器IP}" "${bole_ip:-服务器IP}"
+    bole_binding=$(docker compose -f "$bole_compose" port boleserver 9527 | head -n 1)
+    bole_port=${bole_binding##*:}
+    printf '\nBoleServer 已启动。目录：%s\n'  "$bole_dir"
+    printf '后台：http://%s:%s/admin/\n播放器：http://%s:%s/\n' "${bole_ip:-服务器IP}" "${bole_port:-9527}" "${bole_ip:-服务器IP}" "${bole_port:-9527}"
     printf '首次进入后台设置管理密码；已有安装继续使用原密码。\n'
     printf '音源入口：播放器 → 设置 → 系统 → 管理员登录 → 管理 / 添加 → 音源订阅清单。\n'
     exit 0

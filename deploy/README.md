@@ -9,3 +9,5 @@ Visit `/admin/` to choose a password on a fresh installation. The standard Compo
 Persistent data/cache/music/cover_cache directories must be writable by UID 1000. Keep LICENSE and UPSTREAM-NOTICES.txt. No credentials, user files, sources or caches belong in images. Publishing does not update running servers.
 
 Build from source: `docker build -t boleserver:local .`. The root Dockerfile compiles source in a builder stage; deploy/Dockerfile remains available for local packages with an already compiled server/ directory.
+
+For gh-proxy.com acceleration, run with `BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest`. The installer preserves other `.env` settings and stores this override. Leave BOLE_IMAGE unset for official GHCR access.

@@ -141,15 +141,23 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 
 ### 方式二：使用 Docker（推荐）
 
-适用于已安装 **Docker Engine 和 Docker Compose 插件**的 Linux 服务器，支持 amd64 / arm64。首次启动需能访问 GHCR 下载镜像。
+适用于已安装 **Docker Engine 和 Docker Compose 插件**的 Linux 服务器，支持 amd64 / arm64。首次启动需能访问选用的镜像下载地址。
 
-**一键安装**（默认安装到 `/opt/boleserver`）：
+**国内加速一键安装**（默认安装到 `/opt/boleserver`，脚本下载和镜像拉取均通过 gh-proxy.com）：
+
+```bash
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
+```
+
+已是 root 用户时去掉 `sudo` 即可。`gh-proxy.com` 为第三方加速服务；如无法访问或希望直连，使用下方官方命令。镜像加速地址会保存在安装目录的 `.env`，后续升级继续使用。
+
+**官方直连安装**：
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo bash /tmp/boleserver-install.sh
 ```
 
-已是 root 用户时将 `sudo bash` 改为 `bash`。脚本检查 Docker、拉取镜像、创建持久化目录并启动服务，健康检查成功后显示后台地址。不会安装 Docker 或更改防火墙。自定义安装目录可在命令末尾添加目录，例如 `/opt/my-boleserver`。
+脚本检查 Docker、拉取镜像、创建持久化目录并启动服务，健康检查成功后显示后台地址。不会安装 Docker 或更改防火墙。自定义安装目录可在命令末尾添加目录，例如 `/opt/my-boleserver`。
 
 首次打开 `http://服务器IP:9527/admin/`，输入两次自己选择的管理员密码（8–128 位），保存后进入后台。**没有默认管理密码，也不需要查找随机密码。** 密码保存在挂载的 `data/config.js`，容器重启、升级后仍保留。已有部署继续使用原密码。
 
@@ -159,7 +167,8 @@ curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/ins
 
 ```bash
 mkdir -p /opt/boleserver && cd /opt/boleserver
-curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/compose.yaml -o compose.yaml
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/compose.yaml -o compose.yaml
+printf 'BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest\n' > .env
 mkdir -p data cache music cover_cache
 sudo chown 1000:1000 data cache music cover_cache
 docker compose pull

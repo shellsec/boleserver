@@ -1,7 +1,7 @@
 # Save as /opt/boleserver/compose.yaml. First visit /admin/ to choose a password.
 services:
   boleserver:
-    image: ghcr.io/shellsec/boleserver:latest
+    image: ${BOLE_IMAGE:-ghcr.io/shellsec/boleserver:latest}
     container_name: boleserver
     restart: unless-stopped
     ports:

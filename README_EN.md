@@ -111,6 +111,14 @@ Use `ghcr.io/shellsec/boleserver:latest` on a Linux amd64/arm64 server with Dock
 curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo bash /tmp/boleserver-install.sh
 ```
 
+For mainland China, download the script and image through the optional third-party gh-proxy.com service:
+
+```bash
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
+```
+
+For that accelerated command, remove `sudo` when running as root. The image override is stored in the installation directory's `.env` for future updates.
+
 As root, use `bash` instead of `sudo bash`. The installer uses `/opt/boleserver`, preserves existing Compose configuration, and never installs Docker or changes firewall rules. Open `/admin/` to choose your administrator password on a fresh installation. Existing passwords are preserved; change them in System Config. Configure LX sources/subscriptions in the player settings.
 
 For manual installation, use [deploy/compose.yaml](deploy/compose.yaml), create data/cache/music/cover_cache directories owned by UID 1000, and run `docker compose up -d`. Update using `docker compose pull && docker compose up -d` after backing up persistent data. No administrator password environment variable is needed. If ADMIN_PASSWORD is set, change it through the deployment environment rather than the web UI.
