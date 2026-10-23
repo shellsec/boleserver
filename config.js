@@ -110,12 +110,7 @@ module.exports = {
   // "enableAutoDownload": false, // 启用此用户自动下载歌曲功能（允许将歌单内容自动同步下载至本地数据目录）
   // "maxSnapshotNum": 10, // 最大备份快照数
   // "list.addMusicLocationType": "top" // 添加歌曲到列表时的位置 (top | bottom)
-  "users": [
-    {
-      "name": "admin",
-      "password": "password"
-    }
-  ],
+  "users": [],
 
   // WebDAV 同步配置 (可选，用于数据备份)
   // 是否启用 WebDAV 同步与备份
