@@ -146,7 +146,7 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
 **国内加速一键安装**（默认安装到 `/opt/boleserver`，脚本下载和镜像拉取均通过 gh-proxy.com）：
 
 ```bash
-curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/d2762bcfbc773a0baf81cbca5df1ba1bde2d7a29/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
 ```
 
 已是 root 用户时去掉 `sudo` 即可。`gh-proxy.com` 为第三方加速服务；如无法访问或希望直连，使用下方官方命令。镜像加速地址会保存在安装目录的 `.env`，后续升级继续使用。

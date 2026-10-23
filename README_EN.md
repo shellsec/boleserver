@@ -114,7 +114,7 @@ curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/ins
 For mainland China, download the script and image through the optional third-party gh-proxy.com service:
 
 ```bash
-curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/shellsec/boleserver/d2762bcfbc773a0baf81cbca5df1ba1bde2d7a29/deploy/install.sh -o /tmp/boleserver-install.sh && sudo env BOLE_IMAGE=gh-proxy.com/docker/ghcr.io/shellsec/boleserver:latest bash /tmp/boleserver-install.sh
 ```
 
 For that accelerated command, remove `sudo` when running as root. The image override is stored in the installation directory's `.env` for future updates.
