@@ -95,8 +95,8 @@ module.exports = {
   "disableTelemetry": false,
 
   // 管理员密码（用于登录管理控制台和在音乐播放器界面登录管理员）
-  // 环境变量: ADMIN_PASSWORD
-  "admin.password": "123456",
+  // 留空时首次打开 /admin/ 设置密码；环境变量 ADMIN_PASSWORD 设置后由部署环境管理
+  "admin.password": "",
 
   // 用户列表
   // 环境变量: LX_USER_<用户名>=<密码> (例如: LX_USER_user1=123456)

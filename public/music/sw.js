@@ -1,4 +1,4 @@
-const CACHE_NAME = 'boleserver-web-v1';
+const CACHE_NAME = 'boleserver-web-v2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -6,6 +6,8 @@ const ASSETS_TO_CACHE = [
     './app.js',
     // CSS
     './css/theme_variables.css',
+    './css/bole-appearance.css',
+    './assets/bole-mark.svg',
     './assets/fontawesome/css/all.min.css',
     // 核心 JS
     './js/lyric-parser.js',

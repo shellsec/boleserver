@@ -30,7 +30,7 @@
             posthog.init('phc_vvaqX7sm3RqmiqRbMCjETTc67XKjgqeMgmYHvsZr30f', { api_host: 'https://us.i.posthog.com' })
         }
     </script>
-    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/bole-mark.svg" type="image/svg+xml">
     <link rel="icon" href="assets/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="assets/logo.png">
     <link rel="manifest" href="manifest.json">
@@ -43,12 +43,13 @@
     <script src="js/Sortable.min.js"></script>
     <script src="/js/notification-engine.js"></script>
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/bole-appearance.css">
 </head>
 
 <body class="t-bg-main flex flex-col overflow-hidden t-text-main font-sans" style="height: 100dvh;">
 
     <!-- Main Container -->
-    <div class="flex flex-1 overflow-hidden relative">
+    <div class="bole-shell flex flex-1 overflow-hidden relative">
 
 
         <!-- Mobile Sidebar Backdrop -->
@@ -59,14 +60,10 @@
         <aside id="main-sidebar"
             class="w-72 md:w-72 t-bg-panel shadow-lg flex flex-col z-[60] fixed left-0 top-0 transform -translate-x-full md:relative md:translate-x-0 md:z-30 transition-all duration-300" style="height: 100dvh; padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));">
             <div class="h-16 flex items-center justify-center border-b t-border-main relative">
-                <svg viewBox="0 0 447.942 447.943" class="w-8 h-8 mr-2 rounded-lg shadow-sm"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path style="fill: var(--c-400)"
-                        d="M203.806.482c-19.668-3.346-35.76 11.139-35.76 31.086v206.166c-11.642-4.271-24.165-6.725-37.281-6.725-59.905 0-108.469 48.566-108.469 108.473 0 59.903 48.564 108.461 108.469 108.461 34.141 0 64.54-15.82 84.406-40.482l-49.658-49.664c-15.116-15.112-11.708-28.901-9.542-34.14 2.166-5.233 9.514-17.4 30.883-17.4h18.082v-56.885c0-21.132 14.617-38.862 34.266-43.745.032-44.373.032-81.808.032-81.808 140.147 0 131.724 83.974 115.325 132.196-6.42 18.884-2.601 22.05 10.893 7.354C536.473 77.106 298.38 16.566 203.806.482z" />
-                    <path style="fill: var(--c-600)"
-                        d="M301.061 223.876h-50.994c-3.911 0-7.574.95-10.889 2.523-8.616 4.09-14.615 12.798-14.615 22.973v76.51h-37.708c-14.082 0-17.428 8.071-7.466 18.029l46.893 46.898 31.25 31.246a25.424 25.424 0 0 0 18.033 7.474c6.523 0 13.052-2.484 18.029-7.474l78.152-78.145c9.951-9.958 6.608-18.029-7.47-18.029h-37.71v-76.51c.001-14.078-11.42-25.495-25.505-25.495z" />
-                </svg>
-                <h1 class="text-xl font-bold text-emerald-600 tracking-wider">LX MUSIC</h1>
+                <a href="#" onclick="switchTab('search'); return false" class="bole-brand" aria-label="BoleServer 首页">
+                    <span class="bole-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M9 5v22M9 6h8a5 5 0 0 1 0 10H9m0 0h9a5.5 5.5 0 0 1 0 11H9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M24 6v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+                    <span><strong>BoleServer</strong><small>音乐与歌单</small></span>
+                </a>
                 <!-- Close button for mobile -->
                 <button onclick="toggleSidebar()" class="md:hidden absolute right-4 text-gray-500 hover:text-red-500">
                     <i class="fas fa-times"></i>
@@ -240,8 +237,8 @@
             <!-- Mini Player Info (Optional, cover art here) -->
             <div class="hidden md:block [@media(max-height:535px)]:!hidden sidebar-song-info-wrapper mt-auto">
                 <div id="sidebar-song-info" class="p-4 border-t t-border-main hidden">
-                    <img id="sidebar-cover" src="/music/assets/logo.svg" loading="lazy" fetchpriority="low"
-                        onerror="this.src='/music/assets/logo.svg'; this.classList.add('is-placeholder');" alt="Cover"
+                    <img id="sidebar-cover" src="/music/assets/bole-mark.svg" loading="lazy" fetchpriority="low"
+                        onerror="this.src='/music/assets/bole-mark.svg'; this.classList.add('is-placeholder');" alt="Cover"
                         class="w-full rounded-lg shadow-md mb-3 dynamic-logo is-placeholder">
                     <div class="text-center flex flex-col items-center">
                         <div id="sidebar-song-name" class="font-bold text-sm truncate max-w-full block">Song Name
@@ -254,17 +251,15 @@
 
             <div
                 class="hidden md:block px-6 py-4 text-[10px] t-text-muted text-center border-t t-border-main sidebar-copyright-text">
-                Copyright © 2026 <a href="https://github.com/xcq0607" target="_blank"
-                    class="hover:text-emerald-500 transition-colors">xcq0607</a>.<br>
-                Licensed under Apache-2.0.
+                BoleServer · shellsec 维护<br><a href="/UPSTREAM-NOTICES.txt" target="_blank">开源许可与来源</a>
             </div>
         </aside>
 
         <!-- Content Area -->
-        <main class="flex-1 flex flex-col t-bg-main relative overflow-hidden">
+        <main class="bole-main flex-1 flex flex-col t-bg-main relative overflow-hidden">
 
             <!-- Header / Search Bar Helper (Top strip) -->
-            <header class="h-16 t-bg-panel glass shadow-sm flex items-center justify-between px-3 md:px-6 z-10">
+            <header class="bole-header h-16 t-bg-panel glass shadow-sm flex items-center justify-between px-3 md:px-6 z-10">
                 <div class="flex items-center gap-1.5 md:gap-3 min-w-0">
                     <button onclick="toggleSidebar()"
                         class="md:hidden t-text-muted p-2 hover:t-bg-track rounded-lg shrink-0">
@@ -342,6 +337,7 @@
                 <!-- Search View -->
                 <div id="view-search"
                     class="absolute inset-0 flex flex-col px-2 pt-2 md:px-6 md:pt-6 pb-44 md:pb-32 overflow-hidden transition-all duration-300">
+                    <div class="bole-section-heading"><div><h1>听点喜欢的</h1><p>找一首歌，开启今天的音乐。</p></div><span class="bole-section-symbol" aria-hidden="true">♫</span></div>
                     <!-- Search Input Area -->
                     <div class="flex flex-col md:flex-row gap-2 md:gap-4 mb-4 md:mb-6">
                         <!-- Search Input -->
@@ -618,6 +614,7 @@
                 <div id="view-songlist"
                     class="absolute inset-0 flex flex-col px-2 pt-2 md:px-6 md:pt-6 pb-44 md:pb-32 hidden opacity-0 transition-all duration-300 overflow-hidden">
 
+                    <div class="bole-section-heading"><div><h1>为你留一张歌单</h1><p>从熟悉的旋律，到下一次心动。</p></div></div>
                     <!-- Song List Toolbar -->
                     <div class="flex flex-col md:flex-row gap-3 mb-4 md:mb-6">
                         <!-- Search & Categories -->
@@ -734,7 +731,7 @@
                                 <!-- Left: Mini Cover + Title + Stats -->
                                 <div class="flex items-center gap-2.5 min-w-0 flex-1">
                                     <div class="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/10 dark:ring-white/10">
-                                        <img id="sl-mini-cover" class="w-full h-full object-cover" src="/music/assets/logo.svg" alt="歌单封面">
+                                        <img id="sl-mini-cover" class="w-full h-full object-cover" src="/music/assets/bole-mark.svg" alt="歌单封面">
                                     </div>
                                     <div class="min-w-0 flex-1">
                                         <div class="flex items-center gap-1.5">
@@ -821,7 +818,7 @@
                                         <div class="relative w-28 h-28 md:w-44 md:h-44 rounded-2xl overflow-hidden shadow-2xl ring-2 ring-black/5 dark:ring-white/10 flex-shrink-0 group/cover">
                                             <img id="sl-detail-cover" loading="lazy" fetchpriority="low"
                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover/cover:scale-105 dynamic-logo is-placeholder"
-                                                src="/music/assets/logo.svg">
+                                                src="/music/assets/bole-mark.svg">
                                             <div class="absolute inset-0 bg-black/35 opacity-0 group-hover/cover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
                                                 onclick="playAllInSongList()" title="点击播放全部">
                                                 <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg transform translate-y-2 group-hover/cover:translate-y-0 transition-transform duration-300">
@@ -2775,89 +2772,18 @@
                                 </div>
                             </div>
 
-                            <!-- Theme Selection -->
-                            <div>
-                                <h3 class="font-bold t-text-main text-lg mb-4 flex items-center">
-                                    <i class="fas fa-palette mr-2 text-emerald-500"></i> 主题风格
-                                </h3>
-                                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                                    <!-- Emerald -->
-                                    <button onclick="setTheme('emerald')"
-                                        class="theme-option group relative rounded-xl border t-border-main p-2 hover:shadow-md transition-all text-left overflow-hidden ring-2 ring-transparent ring-offset-2 data-[active=true]:ring-emerald-500"
-                                        data-theme="emerald">
-                                        <div
-                                            class="h-24 rounded-lg bg-gradient-to-br from-[#34d399] to-[#059669] mb-3 shadow-inner relative overflow-hidden">
-                                            <div
-                                                class="absolute inset-0 t-bg-panel/20 transform rotate-12 scale-150 translate-y-10 group-hover:translate-y-8 transition-transform">
-                                            </div>
-                                            <i
-                                                class="fas fa-check-circle absolute top-2 right-2 text-white/90 opacity-0 group-data-[active=true]:opacity-100 transition-opacity"></i>
-                                        </div>
-                                        <div class="font-bold t-text-main text-sm text-center">森之韵</div>
-                                        <div class="text-xs text-center t-text-muted scale-90">Emerald</div>
-                                    </button>
-                                    <!-- Blue -->
-                                    <button onclick="setTheme('blue')"
-                                        class="theme-option group relative rounded-xl border t-border-main p-2 hover:shadow-md transition-all text-left overflow-hidden ring-2 ring-transparent ring-offset-2 data-[active=true]:ring-blue-500"
-                                        data-theme="blue">
-                                        <div
-                                            class="h-24 rounded-lg bg-gradient-to-br from-blue-400 to-blue-600 mb-3 shadow-inner relative overflow-hidden">
-                                            <div
-                                                class="absolute inset-0 t-bg-panel/20 transform rotate-12 scale-150 translate-y-10 group-hover:translate-y-8 transition-transform">
-                                            </div>
-                                            <i
-                                                class="fas fa-check-circle absolute top-2 right-2 text-white/90 opacity-0 group-data-[active=true]:opacity-100 transition-opacity"></i>
-                                        </div>
-                                        <div class="font-bold t-text-main text-sm text-center">深海谧</div>
-                                        <div class="text-xs text-center t-text-muted scale-90">Deep Blue</div>
-                                    </button>
-                                    <!-- Amber -->
-                                    <button onclick="setTheme('amber')"
-                                        class="theme-option group relative rounded-xl border t-border-main p-2 hover:shadow-md transition-all text-left overflow-hidden ring-2 ring-transparent ring-offset-2 data-[active=true]:ring-amber-500"
-                                        data-theme="amber">
-                                        <div
-                                            class="h-24 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 mb-3 shadow-inner relative overflow-hidden">
-                                            <div
-                                                class="absolute inset-0 t-bg-panel/20 transform rotate-12 scale-150 translate-y-10 group-hover:translate-y-8 transition-transform">
-                                            </div>
-                                            <i
-                                                class="fas fa-check-circle absolute top-2 right-2 text-white/90 opacity-0 group-data-[active=true]:opacity-100 transition-opacity"></i>
-                                        </div>
-                                        <div class="font-bold t-text-main text-sm text-center">暖阳愿</div>
-                                        <div class="text-xs text-center t-text-muted scale-90">Warm Sun</div>
-                                    </button>
-                                    <!-- Violet -->
-                                    <button onclick="setTheme('violet')"
-                                        class="theme-option group relative rounded-xl border t-border-main p-2 hover:shadow-md transition-all text-left overflow-hidden ring-2 ring-transparent ring-offset-2 data-[active=true]:ring-violet-500"
-                                        data-theme="violet">
-                                        <div
-                                            class="h-24 rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 mb-3 shadow-inner relative overflow-hidden">
-                                            <div
-                                                class="absolute inset-0 t-bg-panel/20 transform rotate-12 scale-150 translate-y-10 group-hover:translate-y-8 transition-transform">
-                                            </div>
-                                            <i
-                                                class="fas fa-check-circle absolute top-2 right-2 text-white/90 opacity-0 group-data-[active=true]:opacity-100 transition-opacity"></i>
-                                        </div>
-                                        <div class="font-bold t-text-main text-sm text-center">紫微星</div>
-                                        <div class="text-xs text-center t-text-muted scale-90">Nebula</div>
-                                    </button>
-                                    <!-- Rose -->
-                                    <button onclick="setTheme('rose')"
-                                        class="theme-option group relative rounded-xl border t-border-main p-2 hover:shadow-md transition-all text-left overflow-hidden ring-2 ring-transparent ring-offset-2 data-[active=true]:ring-rose-500"
-                                        data-theme="rose">
-                                        <div
-                                            class="h-24 rounded-lg bg-gradient-to-br from-rose-400 to-red-500 mb-3 shadow-inner relative overflow-hidden">
-                                            <div
-                                                class="absolute inset-0 t-bg-panel/20 transform rotate-12 scale-150 translate-y-10 group-hover:translate-y-8 transition-transform">
-                                            </div>
-                                            <i
-                                                class="fas fa-check-circle absolute top-2 right-2 text-white/90 opacity-0 group-data-[active=true]:opacity-100 transition-opacity"></i>
-                                        </div>
-                                        <div class="font-bold t-text-main text-sm text-center">绯红月</div>
-                                        <div class="text-xs text-center t-text-muted scale-90">Crimson</div>
-                                    </button>
+                            <div class="bole-appearance-section"><h3>界面风格</h3><p class="bole-setting-note">同样的音乐，两种聆听方式。</p>
+                                <div class="bole-style-options">
+                                    <button type="button" class="bole-style-option" data-visual-style="gallery" onclick="setVisualStyle('gallery')" aria-pressed="false"><span class="bole-layout-preview bole-layout-gallery" aria-hidden="true"><i></i><i></i><i></i></span><strong>音乐馆</strong><small>清晰排版，轻盈留白</small></button>
+                                    <button type="button" class="bole-style-option" data-visual-style="studio" onclick="setVisualStyle('studio')" aria-pressed="false"><span class="bole-layout-preview bole-layout-studio" aria-hidden="true"><i></i><i></i><i></i></span><strong>播放室</strong><small>更大封面，沉浸聆听</small></button>
                                 </div>
                             </div>
+                            <div class="bole-appearance-section"><h3>五种心情色彩</h3><p class="bole-setting-note">每种配色都适配浅色与深色。</p><div class="bole-theme-options">
+<button type="button" class="theme-option bole-theme-option" data-theme="emerald" onclick="setTheme('emerald')" aria-pressed="false"><span class="bole-theme-swatch" aria-hidden="true"><span></span><span></span><span></span></span><strong>青瓷</strong><small>松绿与瓷白</small><i class="fas fa-check bole-theme-check" aria-hidden="true"></i></button>
+<button type="button" class="theme-option bole-theme-option" data-theme="blue" onclick="setTheme('blue')" aria-pressed="false"><span class="bole-theme-swatch" aria-hidden="true"><span></span><span></span><span></span></span><strong>潮汐</strong><small>海蓝与薄雾</small><i class="fas fa-check bole-theme-check" aria-hidden="true"></i></button>
+<button type="button" class="theme-option bole-theme-option" data-theme="amber" onclick="setTheme('amber')" aria-pressed="false"><span class="bole-theme-swatch" aria-hidden="true"><span></span><span></span><span></span></span><strong>麦芽</strong><small>琥珀与浅砂</small><i class="fas fa-check bole-theme-check" aria-hidden="true"></i></button>
+<button type="button" class="theme-option bole-theme-option" data-theme="violet" onclick="setTheme('violet')" aria-pressed="false"><span class="bole-theme-swatch" aria-hidden="true"><span></span><span></span><span></span></span><strong>暮紫</strong><small>鸢尾与淡紫</small><i class="fas fa-check bole-theme-check" aria-hidden="true"></i></button>
+<button type="button" class="theme-option bole-theme-option" data-theme="rose" onclick="setTheme('rose')" aria-pressed="false"><span class="bole-theme-swatch" aria-hidden="true"><span></span><span></span><span></span></span><strong>莓红</strong><small>莓果与柔粉</small><i class="fas fa-check bole-theme-check" aria-hidden="true"></i></button></div></div>
 
                             <!-- 界面与布局 -->
                             <div class="col-span-full border-t t-border-main pt-6 mt-4 space-y-4">
@@ -3889,7 +3815,7 @@
                 <span class="text-xs font-semibold md:hidden">收起</span>
             </button>
             <div class="flex-col items-center flex">
-                <h2 class="text-xs md:text-sm font-bold text-gray-400 tracking-widest uppercase">Now Playing</h2>
+                <h2 class="bole-now-playing">正在播放</h2>
             </div>
             <button onclick="toggleLyrics()" id="btn-close-lyrics" title="关闭歌词 / 返回"
                 class="pointer-events-auto t-text-muted hover:text-emerald-600 t-bg-panel/80 hover:t-bg-panel rounded-full w-10 h-10 flex items-center justify-center transition-all shadow-md backdrop-blur-md border border-white/20 active:scale-95 cursor-pointer">
@@ -3904,8 +3830,8 @@
             <!-- Left: Image -->
             <div id="mobile-player-cover-container" ondblclick="toggleDetailCover()"
                 class="w-auto h-auto max-w-[48vw] max-h-[32vh] [@media(max-height:500px)]:max-h-[40vh] aspect-square md:w-[60vh] md:h-[60vh] md:max-w-[35rem] md:max-h-[35rem] md:min-w-[20rem] md:min-h-[20rem] flex-shrink-0 shadow-2xl rounded-3xl overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] border-4 border-white/20 origin-top t-bg-track cursor-pointer">
-                <img id="detail-cover" src="/music/assets/logo.svg" loading="lazy" fetchpriority="low"
-                    onerror="this.src='/music/assets/logo.svg'; this.classList.add('is-placeholder');"
+                <img id="detail-cover" src="/music/assets/bole-mark.svg" loading="lazy" fetchpriority="low"
+                    onerror="this.src='/music/assets/bole-mark.svg'; this.classList.add('is-placeholder');"
                     class="w-full h-full object-cover dynamic-logo is-placeholder">
             </div>
 
@@ -3918,11 +3844,11 @@
                     <div id="detail-title-container" class="overflow-hidden whitespace-nowrap mb-1">
                         <div id="detail-title"
                             class="inline-block text-2xl md:text-4xl font-black t-text-main drop-shadow-sm max-w-full truncate w-fit mx-auto md:mx-0">
-                            Song Name
+                            选择一首喜欢的歌
                         </div>
                     </div>
                     <div id="detail-artist"
-                        class="inline-block text-base md:text-xl t-text-muted font-medium truncate max-w-full">Artist
+                        class="inline-block text-base md:text-xl t-text-muted font-medium truncate max-w-full">开始播放，显示歌曲信息
                     </div>
                     <div id="toggle-hint"
                         class="text-[10px] text-emerald-500/60 mt-2 font-mono tracking-widest opacity-80 transition-all duration-1000 overflow-hidden max-h-8">
@@ -3969,8 +3895,8 @@
             class="w-full md:w-1/4 flex items-start md:items-center gap-2 md:gap-4 mb-2 md:mb-0 pr-8 md:pr-0 transition-all duration-300">
             <div onclick="toggleLyrics()"
                 class="w-12 h-12 md:w-14 md:h-14 bg-gray-200 rounded-md overflow-hidden shadow-sm relative group flex-shrink-0 cursor-pointer">
-                <img id="player-cover" src="/music/assets/logo.svg" loading="lazy" fetchpriority="low"
-                    onerror="this.src='/music/assets/logo.svg'; this.classList.add('is-placeholder');"
+                <img id="player-cover" src="/music/assets/bole-mark.svg" loading="lazy" fetchpriority="low"
+                    onerror="this.src='/music/assets/bole-mark.svg'; this.classList.add('is-placeholder');"
                     class="w-full h-full object-cover dynamic-logo is-placeholder" alt="专辑封面">
                 <div class="absolute inset-0 bg-black/30 hidden group-hover:flex items-center justify-center cursor-pointer">
                     <i class="fas fa-expand text-white"></i>
@@ -3991,7 +3917,7 @@
                 </div>
             </div>
             <!-- Action Buttons (Mobile Compact) -->
-            <div
+            <div id="player-quick-actions"
                 class="flex flex-wrap items-center justify-end max-[440px]:justify-center gap-1.5 ml-auto flex-shrink-0 max-[440px]:max-w-[80px] max-w-[200px] md:max-w-none">
                 <!-- Like button -->
                 <button id="player-like-btn" class="text-gray-300 hover:text-red-500 transition-colors">

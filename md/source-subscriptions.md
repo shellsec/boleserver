@@ -2,6 +2,8 @@
 
 BoleServer 基于 [XCQ0607/lxserver](https://github.com/XCQ0607/lxserver)，保留原有排行榜、歌单、搜索、播放、收藏、同步和 Subsonic 功能。主要新增能力是兼容当前移动端的 LX 音源订阅清单和失败恢复。音质、服务器歌曲缓存和过期清理默认值不作修改。
 
+![BoleServer 音源订阅管理](screenshots/bole-source-subscription.png)
+
 ## 使用
 
 在播放器设置中打开「自定义源管理」，输入 sources.json 的 HTTP(S) 地址，点击「保存并更新订阅」。新订阅源默认启用；已有源的启停状态和排序继续保留。开启原有「自动解析换源」后，播放按源顺序尝试。管理员管理公开订阅，登录用户管理自己的私有订阅。

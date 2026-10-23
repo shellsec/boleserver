@@ -45,7 +45,29 @@ class App {
         this.initVersion();
     }
 
-    init() {
+    async init() {
+        // Determine initialization state before attempting a cached login.
+        try {
+            const response = await fetch('/api/admin/setup', { cache: 'no-store' });
+            if (!response.ok) throw new Error('无法读取初始化状态');
+            this.setupRequired = (await response.json()).required === true;
+        } catch {
+            document.getElementById('login-error').textContent = '无法连接服务器，请刷新页面重试';
+            document.getElementById('login-error-box').classList.remove('hidden');
+            document.getElementById('login-btn').disabled = true;
+            return;
+        }
+        if (this.setupRequired) {
+            localStorage.removeItem('lx_auth');
+            document.getElementById('admin-login-subtitle').textContent = '欢迎使用 · 首次设置';
+            document.getElementById('login-btn-text').textContent = '设置密码并进入后台';
+            document.getElementById('setup-confirm-group').classList.remove('hidden');
+            const input = document.getElementById('access-password');
+            input.placeholder = '设置管理员密码（8–128 位）';
+            input.autocomplete = 'new-password';
+            input.maxLength = 128;
+            document.getElementById('admin-setup-help').textContent = '请设置并记住你的管理员密码。保存后，后续访问使用此密码登录。';
+        }
         // 检查是否已登录
         const savedPassword = localStorage.getItem('lx_auth');
         if (savedPassword) {
@@ -58,13 +80,9 @@ class App {
         }
 
         // 绑定登录事件
-        document.getElementById('login-btn')?.addEventListener('click', () => this.login());
         document.getElementById('admin-login-form')?.addEventListener('submit', (e) => {
             e.preventDefault();
             this.login();
-        });
-        document.getElementById('access-password')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.login();
         });
         document.getElementById('toggle-pwd-btn')?.addEventListener('click', () => {
             const pwdInput = document.getElementById('access-password');
@@ -389,6 +407,7 @@ class App {
     }
 
     async login() {
+        if (this.loginBusy) return;
         const pwdInput = document.getElementById('access-password');
         const password = pwdInput ? pwdInput.value : '';
         const errorEl = document.getElementById('login-error');
@@ -414,6 +433,11 @@ class App {
             return;
         }
 
+        if (this.setupRequired && (password.trim().length < 8 || password.length > 128 || password !== document.getElementById('setup-confirm-password').value)) {
+            showError('密码需为 8–128 位，且两次输入一致');
+            return;
+        }
+        this.loginBusy = true;
         if (errorBox) errorBox.classList.add('hidden');
         if (btn) btn.disabled = true;
         const origIcon = btn?.querySelector('i')?.className || 'fas fa-right-to-bracket text-sm';
@@ -421,9 +445,9 @@ class App {
         if (btnText) btnText.textContent = '验证凭据中...';
 
         try {
-            const res = await this.request('/api/login', {
+            const res = await this.request(this.setupRequired ? '/api/admin/setup' : '/api/login', {
                 method: 'POST',
-                body: JSON.stringify({ password })
+                body: JSON.stringify({ password, confirmPassword: document.getElementById('setup-confirm-password').value })
             });
 
             if (res.success) {
@@ -462,6 +486,8 @@ class App {
             }
             if (btnText) btnText.textContent = '登录控制台';
             pwdInput?.focus();
+        } finally {
+            this.loginBusy = false;
         }
     }
 
@@ -2618,6 +2644,9 @@ class App {
                 form.elements['singer.sourcePriority'].value = config['singer.sourcePriority'] || 'tx,wy';
             }
             form.elements['admin.password'].value = config['admin.password'] || '';
+            form.elements['admin.password'].readOnly = config.adminPasswordManaged === true;
+            form.elements['admin.password'].title = config.adminPasswordManaged ? '密码由 ADMIN_PASSWORD 环境变量管理，请修改部署配置并重启' : '可在此修改管理员密码（8–128 位）';
+
 
             // Web播放器配置
             if (form.elements['player.name']) {

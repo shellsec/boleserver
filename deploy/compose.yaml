@@ -1,0 +1,20 @@
+# Save as /opt/boleserver/compose.yaml. First visit /admin/ to choose a password.
+services:
+  boleserver:
+    image: ghcr.io/shellsec/boleserver:latest
+    container_name: boleserver
+    restart: unless-stopped
+    ports:
+      - "9527:9527"
+    environment:
+      NODE_ENV: production
+      DATA_PATH: /server/data
+      LOG_PATH: /server/data/logs
+      PORT: "9527"
+      DISABLE_TELEMETRY: "true"
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data:/server/data
+      - ./cache:/server/cache
+      - ./music:/server/music
+      - ./cover_cache:/server/cover_cache

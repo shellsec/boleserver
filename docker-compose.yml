@@ -1,17 +1,20 @@
-version: '3.8'
-
+# Save as /opt/boleserver/compose.yaml. First visit /admin/ to choose a password.
 services:
   boleserver:
-    build: .
+    image: ghcr.io/shellsec/boleserver:latest
     container_name: boleserver
-    restart: always
+    restart: unless-stopped
     ports:
       - "9527:9527"
-    volumes:
-      # 数据持久化
-      - ./data:/server/data
     environment:
-      # 环境变量配置，优先级高于 config.js
-      - NODE_ENV=production
-      # 示例：通过环境变量设置用户
-      # - LX_USER_myuser=mypassword
+      NODE_ENV: production
+      DATA_PATH: /server/data
+      LOG_PATH: /server/data/logs
+      PORT: "9527"
+      DISABLE_TELEMETRY: "true"
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data:/server/data
+      - ./cache:/server/cache
+      - ./music:/server/music
+      - ./cover_cache:/server/cover_cache

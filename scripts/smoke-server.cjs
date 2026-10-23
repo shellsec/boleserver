@@ -12,7 +12,7 @@ async function main() {
   const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'boleserver-smoke-'))
   const password = randomUUID()
   const config = { ...require(path.join(root, 'config.js')), users: [], port: 0,
-    disableTelemetry: true, 'admin.password': password, 'player.enableAuth': false,
+    disableTelemetry: true, 'admin.password': process.env.BOLE_SMOKE_SETUP ? '' : password, 'player.enableAuth': false,
     'player.path': '/', 'admin.path': '/admin', 'user.enablePublicRestriction': false,
     'subsonic.enable': false, 'webdav.enable': false, 'configBackup.enable': false }
   const configPath = path.join(temp, 'config.js')
@@ -41,9 +41,23 @@ async function main() {
       await new Promise(resolve => setTimeout(resolve, 250))
     }
     assert.ok(ready, 'server failed to start: ' + output)
+    if (process.env.BOLE_SMOKE_SETUP) {
+      assert.deepEqual(await (await request('/api/admin/setup')).json(), { required: true });
+      assert.equal((await request('/api/config', { headers: { 'x-frontend-auth': '' } })).status, 503);
+      assert.equal((await request('/api/login', { method: 'POST', body: JSON.stringify({ password: '' }) })).status, 503);
+      const setup = await request('/api/admin/setup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, confirmPassword: password }) });
+      assert.equal(setup.status, 200);
+      assert.deepEqual(await (await request('/api/admin/setup')).json(), { required: false });
+      assert.equal(require(configPath)['admin.password'], password);
+    }
+    const login = await request('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }) });
+    assert.equal(login.status, 200);
+    assert.equal((await request('/api/admin/setup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password, confirmPassword: password }) })).status, 409);
+    const emptyPassword = await request('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-frontend-auth': password }, body: JSON.stringify({ 'admin.password': '' }) });
+    assert.equal(emptyPassword.status, 400);
     const page = await request('/'); assert.equal(page.status, 200); assert.match(await page.text(), /BoleServer/)
     const admin = await request('/admin/'); assert.equal(admin.status, 200); assert.match(await admin.text(), /BoleServer/)
-    for (const route of ['/music/app.js', '/music/js/quality.js', '/music/manifest.json']) {
+    for (const route of ['/music/app.js', '/music/js/quality.js', '/music/manifest.json', '/music/css/bole-appearance.css', '/music/assets/bole-mark.svg', '/UPSTREAM-NOTICES.txt']) {
       assert.equal((await request(route)).status, 200, route)
     }
     const runtime = await (await request('/js/config.js')).text()

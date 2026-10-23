@@ -593,8 +593,6 @@
   </div>
 
   <div class="about-footer">
-    Copyright © 2026 <a href="https://github.com/XCQ0607/lxserver" target="_blank" style="color: inherit; font-weight: 600;">XCQ0607 / LX Music Server Project</a>. All rights reserved.
+    BoleServer · 由 <a href="https://github.com/shellsec/boleserver" target="_blank" style="color: inherit; font-weight: 600;">shellsec</a> 维护 · <a href="/UPSTREAM-NOTICES.txt" target="_blank" style="color: inherit;">开源许可与来源</a>
   </div>
 </div>
-
-<p>BoleServer maintained by <a href="https://github.com/shellsec/boleserver">shellsec</a>; based on <a href="https://github.com/XCQ0607/lxserver">XCQ0607/lxserver</a>. Original copyright and Apache-2.0 license retained.</p>

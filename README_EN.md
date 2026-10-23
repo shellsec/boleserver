@@ -2,7 +2,7 @@
 
 > BoleServer is maintained by shellsec and based on [XCQ0607/lxserver](https://github.com/XCQ0607/lxserver). LX Music clients and custom-source scripts remain compatible. Original copyright notices and the Apache-2.0 license are retained.
 >
-> This fork adds mobile-compatible [LX source subscriptions and failover](md/source-subscriptions.md). Source is available here; fork-specific desktop binaries and container images require running the corresponding build workflows.
+> This fork adds mobile-compatible [LX source subscriptions and failover](md/source-subscriptions.md). Container images are built by this repository and published to GHCR. Desktop binaries depend on actual release availability.
 
 
 ![lxserver](https://socialify.git.ci/shellsec/boleserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/shellsec/boleserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
@@ -40,73 +40,27 @@ This project features a powerful built-in **Web Player**, allowing you to enjoy 
 
 ## ✨ Web Player Key Features
 
-### 1. Modern Interface & Full Playback Controls
+### Current BoleServer interface
 
-Featuring a clean, responsive UI with automatic Light/Dark mode and full-screen lyrics mode. The integrated player bar offers sound quality switching, playback speed, and sleep timers.
+Captured from the local BoleServer build on 2026-10-23. Online playlist content may change. Mobile captures use a 390 × 660 viewport; the player is idle.
 
-<p align="center">
-  <img src="md/player.png" width="800" alt="Web Player Interface">
-</p>
-<p align="center">
-  <img src="md/controller.png" width="800" alt="Playback Controls">
-</p>
-
-### 2. Multi-source Search, Artists & Albums
-
-Aggregates online resources across major platforms to quickly search tracks, artists, and complete albums with one-click favoriting and instant playback.
+Search, playlists, favorites, local music, LX synchronization and Subsonic compatibility remain available.
 
 <p align="center">
-  <img src="md/search.png" width="800" alt="Multi-source Search">
-</p>
-<p align="center">
-  <img src="md/album.png" width="400" alt="Album Display">
-  <img src="md/singer.png" width="400" alt="Artist Display">
+  <img src="md/screenshots/bole-home.png" width="960" alt="BoleServer gallery search home">
+  <img src="md/screenshots/bole-songlists.png" width="960" alt="BoleServer gallery playlists">
+  <img src="md/screenshots/bole-songlist-detail.png" width="960" alt="BoleServer playlist details">
 </p>
 
-### 3. Playlists & Queue Management
-
-Browse and sync popular online playlists. Convenient side drawers provide intuitive queue drag-and-drop sorting and automated local caching.
+Choose Gallery or Studio, with five palettes and light/dark modes.
 
 <p align="center">
-  <img src="md/musiclist.png" width="400" alt="Playlist Browsing">
-  <img src="md/musiclist-detail.png" width="400" alt="Playlist Details">
-</p>
-<p align="center">
-  <img src="md/playlist.png" width="280" alt="Playback Queue Drawer">
-  <img src="md/cache.png" width="280" alt="Cache Management Drawer">
-</p>
-
-### 4. Local Music Library & Shared Favorites
-
-Centrally manages local, downloaded, and cached music with audio specs parsing (Hi-Res / Lossless), Boolean logic search (`&`, `|`, `!`), integrity checks, and batch operations. Supports public shared libraries.
-
-<p align="center">
-  <img src="md/localmusic.png" width="800" alt="Local Music Library & Advanced Search">
-</p>
-<p align="center">
-  <img src="md/favorite.png" width="800" alt="Favorites & Shared Library">
-</p>
-
-### 5. Themes, Lyric Cards & Custom Sources
-
-Choose from multiple modern color palettes with light/dark modes. Generate high-res lyric cards with custom aspect ratios, and import custom scripts to expand music sources.
-
-<p align="center">
-  <img src="md/theme.png" width="400" alt="Modern Themes">
-  <img src="md/settings.png" width="400" alt="System Configuration">
-</p>
-<p align="center">
-  <img src="md/share.png" width="380" alt="Lyric Card Sharing">
-  <img src="md/source.png" width="420" alt="Custom Source Management">
-</p>
-
-### 6. Subsonic Protocol Ecosystem
-
-Fully compatible with the Subsonic API. Connect using third-party clients (such as Yinliu, Feishin, Symfonium) with global online search and local playback support.
-
-<p align="center">
-  <img src="md/subsonic.png" width="500" alt="Subsonic Support">
-  <img src="md/subsonic-search.png" width="300" alt="Subsonic Online Search">
+  <img src="md/screenshots/bole-studio.png" width="960" alt="BoleServer studio in dark mode">
+  <img src="md/screenshots/bole-themes.png" width="960" alt="BoleServer styles and five palettes">
+  <img src="md/screenshots/bole-source-subscription.png" width="900" alt="LX source subscription management">
+  <img src="md/screenshots/bole-mobile-songlists.png" width="300" alt="Mobile playlists">
+  <img src="md/screenshots/bole-mobile-player.png" width="300" alt="Mobile player, idle">
+  <img src="md/screenshots/bole-admin-setup.png" width="900" alt="First-run administrator password setup">
 </p>
 
 ## 🔒 Access Control & Security
@@ -149,52 +103,19 @@ You can now run BoleServer more conveniently via our Desktop Client, available f
     - **Setup Wizard**: Guided data path selection on first launch, supports **Portable Mode**.
     - **Multi-Arch Support**: Builds for Windows (x64/x86/ARM64 Setup & Portable), macOS (Intel x64 & Apple Silicon arm64), and Linux (amd64/arm64/armv7l deb/AppImage).
 
-### Option 2: Containerized Deployment via Docker
+### Option 2: Docker (recommended)
 
-This project supports pulling images from Docker Hub or GitHub Packages:
-- **Docker Hub**: `shellsec/boleserver:latest`
-- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
-
-**Docker Run Example:**
+Use `ghcr.io/shellsec/boleserver:latest` on a Linux amd64/arm64 server with Docker Engine and the Compose plugin installed.
 
 ```bash
-docker run -d \
-  -p 9527:9527 \
-  -v $(pwd)/data:/server/data \
-  -v $(pwd)/logs:/server/logs \
-  -v $(pwd)/cache:/server/cache \
-  -v $(pwd)/music:/server/music \
-  --name lx-sync-server \
-  --restart unless-stopped \
-  shellsec/boleserver:latest
+curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo bash /tmp/boleserver-install.sh
 ```
 
-**Docker Compose Example:**
+As root, use `bash` instead of `sudo bash`. The installer uses `/opt/boleserver`, preserves existing Compose configuration, and never installs Docker or changes firewall rules. Open `/admin/` to choose your administrator password on a fresh installation. Existing passwords are preserved; change them in System Config. Configure LX sources/subscriptions in the player settings.
 
-Create a `docker-compose.yml` file:
+For manual installation, use [deploy/compose.yaml](deploy/compose.yaml), create data/cache/music/cover_cache directories owned by UID 1000, and run `docker compose up -d`. Update using `docker compose pull && docker compose up -d` after backing up persistent data. No administrator password environment variable is needed. If ADMIN_PASSWORD is set, change it through the deployment environment rather than the web UI.
 
-```yaml
-version: '3'
-services:
-  lx-sync-server:
-    image: shellsec/boleserver:latest
-    container_name: lx-sync-server
-    restart: unless-stopped
-    ports:
-      - "9527:9527"
-    volumes:
-      - ./data:/server/data
-      - ./logs:/server/logs
-      - ./cache:/server/cache
-      - ./music:/server/music
-    environment:
-      - NODE_ENV=production
-      # - ADMIN_PASSWORD=123456
-      # - ENABLE_WEBPLAYER_AUTH=true
-      # - WEBPLAYER_PASSWORD=yourpassword
-      # - ADMIN_PATH=
-      # - PLAYER_PATH=/music
-```
+Build from source with `docker build -t boleserver:local .`; Node.js is not required on the host. See [the Chinese guide](README.md) for full setup, update and password recovery commands.
 
 ### Option 3: Manual Run (Git Clone)
 
@@ -220,7 +141,7 @@ npm start
 #### ① Web Interface Access
 - **Web Player**: `http://<server-ip>:9527` (Default root path `/`, customizable via `PLAYER_PATH` env or backend settings, e.g., `/music`).
   - If password authentication is enabled (`ENABLE_WEBPLAYER_AUTH`), enter your player password (default: `123456`).
-- **Sync Dashboard**: `http://<server-ip>:9527/admin` (Default path `/admin`, customizable via `ADMIN_PATH`, default admin password: `123456`).
+- **Sync Dashboard**: `http://<server-ip>:9527/admin` (Default path `/admin`, customizable via `ADMIN_PATH`, choose a password on the first admin visit).
 
 #### ② LX Music Client Sync Setup (Desktop / Mobile)
 Go to LX Music client "Settings → Sync Settings" and choose Custom Server:
@@ -262,7 +183,7 @@ The configuration file is persisted by default in the data directory at `data/co
 | `PORT` | `port` | Service port | `9527` |
 | `ADMIN_PATH` | `admin.path` | Backend management interface path | `/admin` |
 | `PLAYER_PATH` | `player.path` | Web player access path (default root `/`) | `/` |
-| `ADMIN_PASSWORD` | `admin.password` | Admin password (for management console and music player admin login) | `123456` |
+| `ADMIN_PASSWORD` | `admin.password` | Administrator password; optional environment-managed override | First-run setup |
 | `SERVER_NAME` | `serverName` | Sync service name (shown in client pairing & admin console title) | `BoleServer` |
 | `PLAYER_NAME` | `player.name` | Web player name (shown in web player title & login card) | `BoleServer` |
 | `ENABLE_DEBUG` | `debug.enabled` | Enable DEBUG mode (verbose debug and source sandbox logs, default false) | `false` |

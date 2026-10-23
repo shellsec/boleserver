@@ -47,7 +47,7 @@ features:
     <p>随时随地在任何设备与浏览器中畅享您的私人音乐世界</p>
   </div>
   <div class="showcase-frame">
-    <img src="/player.png" alt="BoleServer Player Interface" />
+    <img src="/bole-home.png" alt="BoleServer Player Interface" />
   </div>
 </div>
 

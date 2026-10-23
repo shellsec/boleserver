@@ -6,3 +6,16 @@ logs
 lx-music-desktop-master
 dist-electron
 build
+
+public/__design-preview.html
+cache
+music
+cover_cache
+.env
+.env.*
+
+releases
+*.tar.gz
+*.tar
+*.zip
+.git*

@@ -2,7 +2,7 @@
 
 > BoleServer 是 shellsec 维护的 LX 音源服务版本，基于 [XCQ0607/lxserver](https://github.com/XCQ0607/lxserver)，保留 LX Music 客户端和音源脚本兼容性。原项目版权和 Apache-2.0 许可继续保留。
 >
-> 新增：[LX 音源订阅与自动切换](md/source-subscriptions.md)。此仓库当前提供源码；桌面安装包和容器镜像需要运行本仓库构建工作流后生成，未沿用上游已发布产物。
+> 新增：[LX 音源订阅与自动切换](md/source-subscriptions.md)。Docker 镜像由本仓库自动构建，使用 `ghcr.io/shellsec/boleserver:latest`，支持 Linux amd64 / arm64。桌面端产物以 Releases 实际发布内容为准。
 
 
 ![lxserver](https://socialify.git.ci/shellsec/boleserver/image?description=1&forks=0&issues=0&logo=https://raw.githubusercontent.com/shellsec/boleserver/refs/heads/main/public/icon.svg&owner=1&pulls=0&stargazers=0&theme=Auto)
@@ -42,75 +42,61 @@
 
 本项目内置了一个功能强大的 **Web 播放器**，让你可以随时随地在浏览器中享受音乐。同时，它也是一个增强版的 [LX Music 数据同步服务端](md/lxserver.md)。
 
-## ✨ Web 播放器核心特性
+## ✨ 界面与功能
 
-### 1. 现代化界面与全能播放控制
+以下为 2026-10-23 当前 BoleServer 本地版本的实拍截图；在线歌单内容会随平台更新。手机图为 390 × 660 浏览器视口，播放页展示未播放状态。
 
-采用清新现代的响应式 UI 设计，支持深浅色模式切换与沉浸式全屏歌词；底栏集成音质切换、倍速播放、睡眠定时等完整控制。
+### 搜索首页与音乐馆
 
-<p align="center">
-  <img src="md/player.png" width="800" alt="Web 播放器主界面">
-</p>
-<p align="center">
-  <img src="md/controller.png" width="800" alt="播放控制栏">
-</p>
-
-### 2. 多源聚合搜索与歌手专辑
-
-聚合各大音乐平台在线资源，秒级检索歌曲、歌手与完整专辑，支持一键收藏与作品快速回溯。
+聚合搜索歌曲、歌手与专辑，保留排行榜、收藏和本地音乐入口。音乐馆采用浅色背景与清晰排版。
 
 <p align="center">
-  <img src="md/search.png" width="800" alt="多源搜索">
-</p>
-<p align="center">
-  <img src="md/album.png" width="400" alt="专辑展示">
-  <img src="md/singer.png" width="400" alt="歌手展示">
+  <img src="md/screenshots/bole-home.png" width="960" alt="BoleServer 音乐馆搜索首页，青瓷浅色主题">
 </p>
 
-### 3. 多平台歌单与播放队列管理
+### 歌单浏览与详情
 
-支持同步浏览多平台热门网络歌单与详情；右侧便捷抽屉面板支持播放队列拖拽排序及自动化本地缓存管理。
+浏览多平台网络歌单，查看曲目、歌手和专辑，支持收藏、批量操作与播放队列管理。
 
 <p align="center">
-  <img src="md/musiclist.png" width="400" alt="歌单广场">
-  <img src="md/musiclist-detail.png" width="400" alt="歌单详情">
-</p>
-<p align="center">
-  <img src="md/playlist.png" width="280" alt="播放队列抽屉">
-  <img src="md/cache.png" width="280" alt="缓存管理抽屉">
+  <img src="md/screenshots/bole-songlists.png" width="960" alt="BoleServer 音乐馆歌单页">
+  <img src="md/screenshots/bole-songlist-detail.png" width="960" alt="BoleServer 皇后乐队歌单详情，暮紫暗色主题">
 </p>
 
-### 4. 本地音乐库与共享收藏
+### 两种风格、五套配色
 
-统一管理服务器本地存储、下载及缓存的音频文件，支持无损规格解析、布尔逻辑搜索（`&`、`|`、`!`）、状态查漏与批量操作；支持开启多用户公共共享曲库。
+内置「音乐馆」与「播放室」，提供青瓷、潮汐、麦芽、暮紫、莓红五套配色，每套适配浅色与深色模式。播放室采用更大的歌单封面。
 
 <p align="center">
-  <img src="md/localmusic.png" width="800" alt="本地音乐库与高级检索">
-</p>
-<p align="center">
-  <img src="md/favorite.png" width="800" alt="收藏与共享曲库">
+  <img src="md/screenshots/bole-studio.png" width="960" alt="BoleServer 播放室歌单页，暮紫暗色主题">
+  <img src="md/screenshots/bole-themes.png" width="960" alt="BoleServer 两种界面风格和五套配色设置">
 </p>
 
-### 5. 个性化主题、歌词卡片与自定义源
+### LX 音源订阅与自动切换
 
-提供多套精美色彩主题与暗亮模式切换；支持一键生成多比例高清歌词分享卡片；支持导入自定义音源脚本扩展无限可能。
+支持导入 LX 音源脚本和订阅清单；按顺序尝试音源，全部失败后检查订阅更新。详情见 [音源订阅说明](md/source-subscriptions.md)。
+
+填写入口：播放器 → 设置 → 系统 → 自定义源 → 管理员登录 → 管理 / 添加 →「音源订阅清单」。填写 `sources.json` 的完整 HTTP(S) 地址，点击「保存并更新订阅」。这里不是填写歌曲或歌单链接。
 
 <p align="center">
-  <img src="md/theme.png" width="400" alt="多套色彩主题">
-  <img src="md/settings.png" width="400" alt="全方位系统配置">
-</p>
-<p align="center">
-  <img src="md/share.png" width="380" alt="歌词卡片社交分享">
-  <img src="md/source.png" width="420" alt="自定义源管理">
+  <img src="md/screenshots/bole-source-subscription.png" width="900" alt="BoleServer LX 音源订阅管理，含保存更新、检查更新和清除订阅入口">
 </p>
 
-### 6. Subsonic 协议与多端互联
+### 手机浏览与播放页
 
-全面兼容 Subsonic API 协议，支持使用各类第三方客户端（音流、Feishin 等）连接播放，支持客户端内全网在线搜索与本地资源检索。
+手机浏览器支持歌单双列布局、底部播放控制和全屏播放页。未安装可用音源时，界面截图不代表已验证实际播放。
 
 <p align="center">
-  <img src="md/subsonic.png" width="500" alt="Subsonic 客户端连接">
-  <img src="md/subsonic-search.png" width="300" alt="Subsonic 在线全网搜索">
+  <img src="md/screenshots/bole-mobile-songlists.png" width="300" alt="BoleServer 手机歌单双列布局">
+  <img src="md/screenshots/bole-mobile-player.png" width="300" alt="BoleServer 手机全屏播放页，未播放状态">
+</p>
+
+### 管理后台首次设置
+
+新安装首次访问后台时自行设置管理密码；已有部署保留原密码。后台可管理同步用户、配置、缓存和音源，继续兼容 LX Music 同步与 Subsonic 客户端。
+
+<p align="center">
+  <img src="md/screenshots/bole-admin-setup.png" width="900" alt="BoleServer 后台首次设置管理员密码页面">
 </p>
 
 ## 🔒 访问控制与安全
@@ -153,53 +139,75 @@ Web 播放器针对移动端进行了深度优化，手机浏览器访问也能�
   - **托盘常驻**: 窗口关闭后自动缩回托盘，服务在后台始终运行。
   - **全架构支持**: 提供 Windows (x64/x86/ARM64 Setup 及 Portable)、macOS (Intel/Apple Silicon) 及 Linux (amd64/arm64/armv7l) 全家桶。
 
-### 方式二：使用 Docker
+### 方式二：使用 Docker（推荐）
 
-本项目支持从 Docker Hub 或 GitHub Packages 拉取镜像：
+适用于已安装 **Docker Engine 和 Docker Compose 插件**的 Linux 服务器，支持 amd64 / arm64。首次启动需能访问 GHCR 下载镜像。
 
-- **Docker Hub**: `shellsec/boleserver:latest`
-- **GitHub Packages**: `ghcr.io/shellsec/boleserver:latest`
-
-**Docker Run 示例：**
+**一键安装**（默认安装到 `/opt/boleserver`）：
 
 ```bash
-docker run -d \
-  -p 9527:9527 \
-  -v $(pwd)/data:/server/data \
-  -v $(pwd)/logs:/server/logs \
-  -v $(pwd)/cache:/server/cache \
-  -v $(pwd)/music:/server/music \
-  --name lx-sync-server \
-  --restart unless-stopped \
-  shellsec/boleserver:latest
+curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/install.sh -o /tmp/boleserver-install.sh && sudo bash /tmp/boleserver-install.sh
 ```
 
-**Docker Compose 示例：**
+已是 root 用户时将 `sudo bash` 改为 `bash`。脚本检查 Docker、拉取镜像、创建持久化目录并启动服务，健康检查成功后显示后台地址。不会安装 Docker 或更改防火墙。自定义安装目录可在命令末尾添加目录，例如 `/opt/my-boleserver`。
 
-新建 `docker-compose.yml` 文件：
+首次打开 `http://服务器IP:9527/admin/`，输入两次自己选择的管理员密码（8–128 位），保存后进入后台。**没有默认管理密码，也不需要查找随机密码。** 密码保存在挂载的 `data/config.js`，容器重启、升级后仍保留。已有部署继续使用原密码。
 
-```yaml
-version: '3'
-services:
-  lx-sync-server:
-    image: shellsec/boleserver:latest
-    container_name: lx-sync-server
-    restart: unless-stopped
-    ports:
-      - "9527:9527"
-    volumes:
-      - ./data:/server/data
-      - ./logs:/server/logs
-      - ./cache:/server/cache
-      - ./music:/server/music
-    environment:
-      - NODE_ENV=production
-      # - ADMIN_PASSWORD=123456
-      # - ENABLE_WEBPLAYER_AUTH=true
-      # - WEBPLAYER_PASSWORD=yourpassword
-      # - ADMIN_PATH=/music
-      # - PLAYER_PATH=/
+登录后可在「系统配置 → 管理员密码」修改密码，在「用户管理」添加同步用户。音源入口是「播放器 → 设置 → 系统 → 管理员登录 → 管理 / 添加 → 音源订阅清单」，填写 LX `sources.json` 地址并保存；也可上传音源脚本。
+
+**手动 Compose 部署**：
+
+```bash
+mkdir -p /opt/boleserver && cd /opt/boleserver
+curl -fsSL https://raw.githubusercontent.com/shellsec/boleserver/main/deploy/compose.yaml -o compose.yaml
+mkdir -p data cache music cover_cache
+sudo chown 1000:1000 data cache music cover_cache
+docker compose pull
+docker compose up -d
+docker compose logs -f
 ```
+
+镜像：`ghcr.io/shellsec/boleserver:latest`；端口：`9527`。Compose 示例见 [deploy/compose.yaml](deploy/compose.yaml)。`data/` 保存密码、用户配置和音源；日志位于 `data/logs/`；`cache/`、`music/`、`cover_cache/` 为持久化文件。
+
+标准配置不设置 `ADMIN_PASSWORD`，方便在后台修改密码。如果手动设置了它，环境变量具有最高优先级，后台将禁止修改管理密码，需修改部署环境后重新创建容器。播放器访问密码独立，可在后台设置。
+
+**升级**：先备份数据目录与 Compose 文件，然后执行：
+
+```bash
+cd /opt/boleserver
+docker compose pull
+docker compose up -d
+```
+
+升级保留数据和密码；不要删除数据目录。`latest` 跟随 main 分支通过测试的构建，也可使用镜像包页面上的 `sha-` 标签固定版本。现有本地镜像部署需先将 Compose 中 `image` 改为上述 GHCR 地址；仓库推送和镜像发布不会自动升级运行中的服务。
+
+**从源码构建**（可选，无需在宿主机安装 Node.js）：
+
+```bash
+git clone https://github.com/shellsec/boleserver.git
+cd boleserver
+docker build -t boleserver:local .
+```
+
+忘记管理密码时，停止容器并在服务器重置为自选密码（执行时不会回显密码）：
+
+```bash
+cd /opt/boleserver
+docker compose stop
+read -rsp '新的管理员密码（8–128 位）: ' BOLE_NEW_PASSWORD; echo
+export BOLE_NEW_PASSWORD
+docker compose run --rm -e BOLE_NEW_PASSWORD --entrypoint node boleserver -e '
+const fs = require("fs");
+const p = process.env.BOLE_NEW_PASSWORD;
+if (!p || p.trim().length < 8 || p.length > 128) throw new Error("密码长度需为 8–128 位");
+const file = "/server/data/config.js";
+const c = require(file); c["admin.password"] = p;
+fs.writeFileSync(file, "module.exports = " + JSON.stringify(c, null, 2), { mode: 0o600 });'
+unset BOLE_NEW_PASSWORD
+docker compose up -d
+```
+
+如果设置了 `ADMIN_PASSWORD`，应直接修改该环境变量后执行 `docker compose up -d --force-recreate`。
 
 ### 方式三：直接运行 (Git Clone)
 
@@ -226,7 +234,7 @@ npm start
 
 - **Web 播放器**: `http://<服务器IP>:9527`（默认根路径，可通过 `PLAYER_PATH` 环境变量或后台配置自定义路径，如 `/music`）
   - 若启用了播放器访问密码认证（`ENABLE_WEBPLAYER_AUTH`），首次访问需输入播放器密码（默认 `123456`）。
-- **管理后台**: `http://<服务器IP>:9527/admin`（默认路径为 `/admin`，可通过 `ADMIN_PATH` 自定义，默认管理员密码: `123456`）。
+- **管理后台**: `http://<服务器IP>:9527/admin`（默认路径为 `/admin`，可通过 `ADMIN_PATH` 自定义，首次访问设置管理员密码，已有部署使用原密码）。
 
 #### ② LX Music 客户端同步配置（桌面端 / 移动端）
 
@@ -272,7 +280,7 @@ npm start
 | `PORT`                                     | `port`                                     | 服务端口                                                                                           | `9527`             |
 | `ADMIN_PATH`                               | `admin.path`                               | 后台管理界面访问路径                                                                               | `/admin`           |
 | `PLAYER_PATH`                              | `player.path`                              | Web 播放器访问路径 (默认为根路径 `/`)                                                            | `/`                |
-| `ADMIN_PASSWORD`                           | `admin.password`                           | 管理员密码（用于登录控制台和音乐播放器管理员登录）                                                 | `123456`           |
+| `ADMIN_PASSWORD`                           | `admin.password`                           | 管理员密码；设置后由环境变量管理，后台不可修改                                                 | 首次后台设置           |
 | `SERVER_NAME`                              | `serverName`                               | 同步服务名称（客户端连接展示名称及管理后台标题）                                                   | `BoleServer`   |
 | `PLAYER_NAME`                              | `player.name`                              | Web 播放器名称（播放器网页标题及登录卡片标题）                                                     | `BoleServer`     |
 | `ENABLE_DEBUG`                             | `debug.enabled`                            | 是否启用 DEBUG 模式 (开启后输出详细调试日志与音源内部日志，默认关闭)                               | `false`            |

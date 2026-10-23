@@ -10,8 +10,9 @@ function initTheme() {
     const savedTheme = localStorage.getItem('lx_theme') || 'emerald';
     const savedAppearance = localStorage.getItem('lx_appearance') || 'system';
 
-    setTheme(savedTheme, false);
+    setTheme(THEMES.includes(savedTheme) ? savedTheme : 'emerald', false);
     setAppearance(savedAppearance, false);
+    setVisualStyle(localStorage.getItem('boleserver_visual_style') || 'gallery', false);
 }
 
 // Set Theme (Colors)
@@ -34,6 +35,15 @@ function setTheme(themeName, save = true) {
 
     // Update UI (Checkmarks and Highlights)
     updateThemeSelectionUI(themeName);
+}
+
+function setVisualStyle(style, save = true) {
+    const selected = ['gallery', 'studio'].includes(style) ? style : 'gallery';
+    document.documentElement.setAttribute('data-visual-style', selected);
+    if (save) localStorage.setItem('boleserver_visual_style', selected);
+    document.querySelectorAll('[data-visual-style].bole-style-option').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.getAttribute('data-visual-style') === selected));
+    });
 }
 
 function setAppearance(mode, save = true) {
@@ -72,6 +82,7 @@ function setAppearance(mode, save = true) {
 function updateThemeSelectionUI(activeTheme) {
     document.querySelectorAll('.theme-option').forEach(btn => {
         const theme = btn.getAttribute('data-theme');
+        btn.setAttribute('aria-pressed', String(theme === activeTheme));
         if (theme === activeTheme) {
             btn.setAttribute('data-active', 'true');
         } else {

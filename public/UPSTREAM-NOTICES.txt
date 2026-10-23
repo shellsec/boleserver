@@ -1,0 +1,10 @@
+BoleServer — upstream notices
+
+Maintained by shellsec: https://github.com/shellsec/boleserver
+Based on XCQ0607/lxserver: https://github.com/XCQ0607/lxserver
+Original notice: Copyright © 2026 XCQ0607 / LX Music Server Project. All rights reserved.
+Upstream README notice: Apache License 2.0 copyright (c) 2026 xcq0607.
+Original sync server: https://github.com/lyswhut/lx-music-sync-server
+Original copyright and license notices are retained. See LICENSE, public/LICENSE,
+and public/music/LICENSE. BoleServer adds source subscriptions, failure recovery
+and its own appearance system. Upstream authors do not maintain this fork.

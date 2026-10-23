@@ -47,7 +47,7 @@ features:
     <p>Enjoy your personal music universe anywhere, on any device and browser</p>
   </div>
   <div class="showcase-frame">
-    <img src="/player.png" alt="BoleServer Player Interface" />
+    <img src="/bole-home.png" alt="BoleServer Player Interface" />
   </div>
 </div>
 

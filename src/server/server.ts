@@ -1,3 +1,4 @@
+import { handleAdminSetup, needsAdminSetup, validAdminPassword } from './adminSetup'
 import http, { type IncomingMessage } from 'node:http'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -1122,6 +1123,14 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
     // console.log(req.url)
     const urlObj = new URL(req.url ?? '', `http://${req.headers.host}`)
     const pathname = urlObj.pathname
+
+    if (await handleAdminSetup(req, res, pathname)) return
+    if (needsAdminSetup() && (pathname.startsWith('/api/') || pathname.startsWith(global.lx.config['subsonic.path'] || '/rest'))) {
+      res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' })
+      res.end(JSON.stringify({ error: '请先打开管理后台设置管理员密码', setupRequired: true }))
+      return
+    }
+
 
     // 读取路径配置（每次请求都重新读取，保存后立刻生效）
     const normalizePath = (p: string) => (p || '').replace(/\/+$/, '')
@@ -7254,6 +7263,7 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
             'configBackup.dir': global.lx.config['configBackup.dir'] ?? '',
             'snapshot.backupPath': global.lx.config['snapshot.backupPath'] ?? '',
             subsonicPortConflict: global.lx.subsonicPortConflict || null,
+            adminPasswordManaged: !!process.env.ADMIN_PASSWORD,
             configFilePath: global.lx.configPath || process.env.CONFIG_PATH || path.join(global.lx.dataPath, 'config.js'),
           }
           res.writeHead(200, {
@@ -7268,6 +7278,19 @@ const handleStartServer = async (port = 9527, ip = '0.0.0.0') => await new Promi
           void readBody(req).then(body => {
             try {
               const newConfig = JSON.parse(body)
+              if (newConfig['admin.password'] !== undefined && newConfig['admin.password'] !== global.lx.config['admin.password']) {
+                if (process.env.ADMIN_PASSWORD) {
+                  res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' })
+                  res.end(JSON.stringify({ error: '管理员密码由 ADMIN_PASSWORD 环境变量管理，请修改部署配置并重启' }))
+                  return
+                }
+                if (!validAdminPassword(newConfig['admin.password'])) {
+                  res.writeHead(400, { 'Content-Type': 'application/json; charset=utf-8' })
+                  res.end(JSON.stringify({ error: '管理员密码需为 8–128 位' }))
+                  return
+                }
+              }
+
               if (newConfig.serverName !== undefined) global.lx.config.serverName = newConfig.serverName
               if (newConfig['debug.enabled'] !== undefined) global.lx.config['debug.enabled'] = newConfig['debug.enabled']
               if (newConfig.maxSnapshotNum !== undefined) global.lx.config.maxSnapshotNum = parseInt(newConfig.maxSnapshotNum)
