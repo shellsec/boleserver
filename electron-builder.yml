@@ -1,6 +1,6 @@
 appId: com.shellsec.boleserver.desktop
 productName: BoleServer
-copyright: "Copyright © 2026 2406498704@qq.com"
+copyright: "Copyright © 2026 BoleServer contributors"
 
 # 覆盖 package.json 的 main 字段，让 Electron 使用 electron/main.js 而非 index.js
 extraMetadata:
@@ -20,8 +20,12 @@ files:
   - index.js
   - config.js
   - package.json
+  - LICENSE
+  - UPSTREAM-NOTICES.txt
   - electron/main.js
   - electron/icons/**/*
+  - "!public/__design-preview.html"
+  - "!public/music/bin/temp-*"
   - "!src"
   - "!scripts"
   - "!docs"

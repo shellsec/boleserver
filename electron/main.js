@@ -332,7 +332,8 @@ app.whenReady().then(async () => {
 
     // 启动时根据配置决定是否显示主界面
     if (!getAppConfig().silentStart) {
-        showPlayerWindow()
+        if (global.lx && !global.lx.config['admin.password']) showAdminWindow()
+        else showPlayerWindow()
     }
 })
 
